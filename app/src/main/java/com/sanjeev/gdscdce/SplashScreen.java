@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.sanjeev.gdscdce.fragments.HomeFragment;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -16,7 +18,13 @@ public class SplashScreen extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         Button Start = findViewById(R.id.Start);
         Start.setOnClickListener(view -> {
-                startActivity(new Intent(SplashScreen.this,DashBoard.class));
+                startActivity(new Intent(SplashScreen.this, DashBoard.class));
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startActivity(new Intent(SplashScreen.this, Walkthrough.class));
     }
 }

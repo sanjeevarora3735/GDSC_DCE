@@ -15,6 +15,13 @@
         android:theme="@style/Theme.GDSCDCE.GetStarted"
         tools:targetApi="31">
         <activity
+            android:name=".EventOverview"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DashBoard"
             android:exported="false"
             android:screenOrientation="portrait"

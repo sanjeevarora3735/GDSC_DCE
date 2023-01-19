@@ -37,15 +37,20 @@ public class Registration extends AppCompatActivity {
     private Button RegistrationButton;
     private ImageButton BackImageButton;
 
+    String LoggedEmail = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        // Finding The Current Logged-in Email
-        String LoggedEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
+        try {
+            // Finding The Current Logged-in Email
+             LoggedEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         // Assigning Values to  Some Important View
         UserProfileImageView = findViewById(R.id.CurrenUserImage);
         BackImageButton = findViewById(R.id.BackButton);
@@ -69,10 +74,12 @@ public class Registration extends AppCompatActivity {
         BackImageButton.setOnClickListener(v -> {
             super.onBackPressed();
         });
-
-        // Load the user profile image
-        Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImageView);
-
+try {
+    // Load the user profile image
+    Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImageView);
+}catch (Exception e){
+    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+}
 
         // Onclick Listener for the Registration Button
         RegistrationButton.setOnClickListener(v -> {
