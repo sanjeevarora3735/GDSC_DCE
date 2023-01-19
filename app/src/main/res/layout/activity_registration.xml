@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Registration">
+
+    <LinearLayout
+        android:id="@+id/AppBarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/BackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_margin="10dp"
+            android:elevation="10dp"
+            android:scaleType="center"
+            android:src="@drawable/back_button"
+            android:background="@drawable/roundback_button"/>
+
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/CurrenUserImage"
+            android:layout_width="100dp"
+            android:layout_margin="10dp"
+            android:layout_height="100dp"
+            android:src="@drawable/profile_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/AppBarLayout"/>
+
+    <LinearLayout
+        android:id="@+id/RegisterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/CurrenUserImage"
+        app:layout_constraintStart_toStartOf="@+id/CurrenUserImage"
+        app:layout_constraintTop_toBottomOf="@+id/CurrenUserImage">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Register to "
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="beUpToDate"
+            android:textAlignment="center"
+            android:textColor="@color/Google_Blue"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_SigninSet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
+        android:theme="@style/Theme.MaterialComponents.DayNight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/RegisterTextView">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Username"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Username"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="#A6989899"
+            app:hintTextColor="@color/TagLineColor"
+            app:startIconDrawable="@drawable/person_3_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/UsernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Contact"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Contact number"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="#A6989899"
+            app:hintTextColor="@color/TagLineColor"
+            app:startIconDrawable="@drawable/phone_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ContactEditText"
+                android:layout_width="match_parent"
+                android:inputType="phone"
+                android:layout_height="match_parent"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/InviteCodeInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Invite code"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="#A6989899"
+            app:hintTextColor="@color/TagLineColor"
+            app:startIconDrawable="@drawable/settings_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/InviteCodeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/username_usage"
+        android:textAlignment="textStart"
+        android:textColor="@color/TagLineColor"
+        android:textSize="14dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="@+id/LinearLayout_SigninSet"
+        app:layout_constraintStart_toStartOf="@+id/LinearLayout_SigninSet"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout_SigninSet" />
+
+    <Button
+        android:id="@+id/Registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="Register"
+        android:textSize="20dp"
+        app:layout_constrainedWidth="true"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_semibold"
+        android:background="@drawable/loginbuttondesign"
+        app:layout_constraintEnd_toEndOf="@+id/LinearLayout_SigninSet"
+        app:layout_constraintStart_toStartOf="@+id/LinearLayout_SigninSet"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/ErrorField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/design_default_color_error"
+        android:visibility="gone"
+        app:layout_constrainedWidth="true"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/Registration"
+        app:layout_constraintStart_toStartOf="@+id/Registration"
+        app:layout_constraintTop_toBottomOf="@id/Registration" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GDSC DCE</string>
+    <string name="DemoString">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget lacus eu dolor ornare interdum.</string>
+    <string name="lorem_isupum">Lorem Isupum</string>
+    <string name="username_usage">* Your subsequent GDSC DCE certificates will include these details, and the core team will use them to get in touch with you when necessary.</string>
+    <string name="name_error">* Please enter your name using standard format.</string>
+    <string name="SeeInterest">Join in your interested community to learn More</string>
+    <string name="JoinCommunity">Simply <a href="https://www.google.com" >click here</a> to sign up for our GDSC DCE Community.</string>
+</resources>
