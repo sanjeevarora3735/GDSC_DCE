@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager.widget.ViewPager;
 
+import com.sanjeev.gdscdce.Adapter.ViewPageAdapter;
+
 public class Walkthrough extends AppCompatActivity {
 
     // Declaring the Adapter for the Slider To Manage The Images & Everything

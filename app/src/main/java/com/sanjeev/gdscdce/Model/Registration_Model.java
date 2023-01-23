@@ -1,4 +1,4 @@
-package com.sanjeev.gdscdce;
+package com.sanjeev.gdscdce.Model;
 
 public class Registration_Model {
     private String Username, Contact_Number, InviteCode;

@@ -1,4 +1,4 @@
-package com.sanjeev.gdscdce;
+package com.sanjeev.gdscdce.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
+
+import com.sanjeev.gdscdce.R;
 
 public class ViewPageAdapter extends PagerAdapter {
 

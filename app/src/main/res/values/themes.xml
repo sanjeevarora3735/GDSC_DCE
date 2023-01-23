@@ -26,4 +26,17 @@
 
     </style>
 
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.App.EventsPoster" parent="">
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.LeaderBordChance" parent="">
+        <item name="cornerSize">50%</item>
+        <item name="android:padding">50dp</item>
+    </style>
+
+
 </resources>

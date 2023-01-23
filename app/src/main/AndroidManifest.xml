@@ -16,6 +16,8 @@
         tools:targetApi="31">
         <activity
             android:name=".EventOverview"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -24,6 +26,7 @@
         <activity
             android:name=".DashBoard"
             android:exported="false"
+            android:configChanges="screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.GDSCDCE.GetStarted">
             <meta-data

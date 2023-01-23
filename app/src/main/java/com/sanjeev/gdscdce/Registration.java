@@ -1,6 +1,5 @@
 package com.sanjeev.gdscdce;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +18,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.sanjeev.gdscdce.Model.Registration_Model;
 import com.squareup.picasso.Picasso;
 
 public class Registration extends AppCompatActivity {
