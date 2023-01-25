@@ -107,7 +107,7 @@
                     app:strokeWidth="5dp" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/UserProfileName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/UserProfileImage"
@@ -131,9 +131,9 @@
                     android:text="App Development Lead at GDSC DCE"
                     android:textAlignment="center"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/textView5"
-                    app:layout_constraintStart_toStartOf="@+id/textView5"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                    app:layout_constraintEnd_toEndOf="@+id/UserProfileName"
+                    app:layout_constraintStart_toStartOf="@+id/UserProfileName"
+                    app:layout_constraintTop_toBottomOf="@+id/UserProfileName" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -345,7 +345,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -7,32 +7,39 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.sanjeev.gdscdce.fragments.ExploreFragment;
 import com.sanjeev.gdscdce.fragments.HomeFragment;
 import com.sanjeev.gdscdce.fragments.ProfileFragment;
 import com.sanjeev.gdscdce.fragments.StatsFragment;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 @SuppressWarnings("all")
 
 public class DashBoard extends AppCompatActivity {
 
-    private int SelectedTab = 1;
     private static int Created = 0;
-
+    private int SelectedTab = 1;
+    private ConstraintLayout ModalLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        Created=1;
+        Created = 1;
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
+        ModalLinearLayout = findViewById(R.id.LinearLayout_Modal);
+
+        //Activate The Modal Please Run The Following Method
+//        ActivateModal();
 
         final Fragment HomeFragment = new HomeFragment();
         final Fragment ExploreFragment = new ExploreFragment();
@@ -206,6 +213,11 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void ActivateModal() {
+        ModalLinearLayout.setVisibility(View.VISIBLE);
+        Picasso.get().load("https://marketplace.canva.com/EAFBBVEyPMs/1/0/1131w/canva-beige-modern-illustration-fundraiser-charity-event-flyer-7VL3uRMWz48.jpg").into((ImageView) findViewById(R.id.ModalImage));
     }
 
     @Override

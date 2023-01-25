@@ -8,6 +8,55 @@
     android:theme="@style/Theme.GDSCDCE.GetStarted"
     tools:context=".DashBoard">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/LinearLayout_Modal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?actionBarSize"
+        android:background="@drawable/overbox"
+        android:elevation="50dp"
+        android:padding="20dp"
+        android:visibility="gone"
+        android:translationZ="10dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ModalImageCardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="?actionBarSize"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ModalImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/samplethumbnail" />
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/text_tags"
+            android:backgroundTint="#7233A856"
+            android:padding="20dp"
+            android:layout_margin="20dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:layout_constraintEnd_toEndOf="@+id/ModalImageCardView"
+            app:layout_constraintStart_toStartOf="@+id/ModalImageCardView"
+            app:layout_constraintTop_toBottomOf="@+id/ModalImageCardView"
+            app:tint="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/FragmentTabHost"
         android:layout_width="match_parent"
