@@ -32,6 +32,13 @@
     <style name="ShapeAppearanceOverlay.App.EventsPoster" parent="">
         <item name="cornerSize">20dp</item>
     </style>
+    <style name="ShapeAppearanceOverlay.App.ProjectUser" parent="">
+        <item name="cornerSize">10dp</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.App.ProjectPosterImage" parent="">
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+    </style>
 
     <style name="ShapeAppearanceOverlay.App.LeaderBordChance" parent="">
         <item name="cornerSize">50%</item>

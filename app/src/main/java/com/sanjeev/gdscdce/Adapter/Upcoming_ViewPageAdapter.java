@@ -13,7 +13,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.sanjeev.gdscdce.R;
 
-public class ViewPageAdapter extends PagerAdapter {
+public class Upcoming_ViewPageAdapter extends PagerAdapter {
 
     // Creating the Context Variable to manage the Views
     Context context;
@@ -24,7 +24,7 @@ public class ViewPageAdapter extends PagerAdapter {
     int[] Description = {R.string.DemoString, R.string.DemoString, R.string.DemoString};
 
     // Constructor
-    public ViewPageAdapter(Context context) {
+    public Upcoming_ViewPageAdapter(Context context) {
         this.context = context;
     }
 

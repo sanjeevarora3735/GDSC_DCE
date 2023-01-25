@@ -8,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager.widget.ViewPager;
 
-import com.sanjeev.gdscdce.Adapter.ViewPageAdapter;
+import com.sanjeev.gdscdce.Adapter.Upcoming_ViewPageAdapter;
 
 public class Walkthrough extends AppCompatActivity {
 
     // Declaring the Adapter for the Slider To Manage The Images & Everything
-    ViewPageAdapter viewPageAdapter;
+    Upcoming_ViewPageAdapter viewPageAdapter;
     // Declaring the instance for the ViewPager For Slider
     private ViewPager mSLideViewPager;
     // Declaring the Next Button For The Slider
@@ -29,7 +29,7 @@ public class Walkthrough extends AppCompatActivity {
 
         // Initialization of the Previously Declared Values...
         mSLideViewPager = findViewById(R.id.WalkthroughCard);
-        viewPageAdapter = new ViewPageAdapter(this);
+        viewPageAdapter = new Upcoming_ViewPageAdapter(this);
         mSLideViewPager.setAdapter(viewPageAdapter);
         NextButton = findViewById(R.id.NextButton);
 

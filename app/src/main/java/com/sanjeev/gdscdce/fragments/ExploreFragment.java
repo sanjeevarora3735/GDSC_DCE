@@ -49,6 +49,7 @@ public class ExploreFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_explore, container, false);
 
 
+
         // Setup OnClickListener For The Tags :)
         TagsLinearLayout = view.findViewById(R.id.TagsLinearLayout);
         AddEventListenerToTags();

@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:theme="@style/Theme.GDSCDCE.GetStarted"
-    tools:context=".DashBoard">
+    tools:context=".DashBoard"
+    tools:ignore="all">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/LinearLayout_Modal"
@@ -16,8 +18,8 @@
         android:background="@drawable/overbox"
         android:elevation="50dp"
         android:padding="20dp"
-        android:visibility="gone"
-        android:translationZ="10dp">
+        android:translationZ="10dp"
+        android:visibility="gone">
 
 
         <androidx.cardview.widget.CardView
@@ -45,10 +47,10 @@
         <ImageButton
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_margin="20dp"
             android:background="@drawable/text_tags"
             android:backgroundTint="#7233A856"
             android:padding="20dp"
-            android:layout_margin="20dp"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             app:layout_constraintEnd_toEndOf="@+id/ModalImageCardView"
             app:layout_constraintStart_toStartOf="@+id/ModalImageCardView"
@@ -59,11 +61,40 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/FragmentTabHost"
+        android:name="com.sanjeev.gdscdce.fragments.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/BottomBar"
         android:background="#20eceaff"
-        android:elevation="20dp" />
+        android:elevation="20dp"
+        tools:layout="@layout/fragment_home" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/FragmentTabHost"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:id="@+id/InternetStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/BackOnline"
+            android:fontFamily="@font/poppins"
+            android:padding="2dp"
+            android:text="Connected to internet"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/BottomBar"

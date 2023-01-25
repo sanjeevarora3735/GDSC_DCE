@@ -29,4 +29,6 @@
     <color name="explore">#C9379D</color>
     <color name="stats">#AE7E0F</color>
     <color name="profile">#5B37B7</color>
+    <color name="NoInternet">#E6000000</color>
+    <color name="BackOnline">#F833A856</color>
 </resources>
