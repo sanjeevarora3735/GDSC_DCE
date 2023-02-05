@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.sanjeev.gdscdce'
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.sanjeev.gdscdce"
-        minSdk 29
-        targetSdk 32
+        minSdk 23
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -42,6 +42,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation 'com.google.firebase:firebase-firestore:24.4.1'
     implementation 'com.google.firebase:firebase-database:20.1.0'
+    implementation 'com.google.firebase:firebase-messaging:23.1.1'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -54,6 +57,8 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
-
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.code.gson:gson:2.8.7'
 
 }

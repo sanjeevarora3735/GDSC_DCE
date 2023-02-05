@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/BackButtonTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -38,17 +39,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="5dp"
                 android:src="@drawable/back_button" />
 
             <TextView
+                android:id="@+id/EventName_TopBackButtom"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins"
                 android:maxLines="1"
-                android:padding="5dp"
+                android:paddingTop="5dp"
+                android:foregroundGravity="bottom"
                 android:text="Build Your Cloud Base"
                 android:textColor="@color/black"
                 android:textSize="12dp"
@@ -179,6 +184,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:id="@+id/EventPosterImageView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
@@ -193,21 +199,7 @@
                         android:translationZ="3dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins"
-                            android:paddingStart="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingEnd="20dp"
-                            android:paddingBottom="5dp"
-                            android:text="Jan 27"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
-
-                    </LinearLayout>
+                        app:layout_constraintStart_toStartOf="parent"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
@@ -219,46 +211,24 @@
             android:layout_width="match_parent"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            app:layout_constrainedWidth="true"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/EventTitle_Overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Build Cloud Base"
                 android:textColor="@color/black"
-                android:textSize="26dp"
+                android:textSize="24dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:padding="10dp"
-                android:src="@drawable/ic_baseline_blur_on_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/Google_Red" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:text="Event closed"
-                android:textColor="@color/Google_Red"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -289,7 +259,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingEnd="10dp"
-                        android:paddingBottom="8dp"
+                        android:paddingBottom="2dp"
                         android:text="To see the event, visit "
                         android:textColor="@color/Google_Red"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -299,6 +269,7 @@
                         tools:layout_editor_absoluteY="5dp" />
 
                     <ImageButton
+                        android:id="@+id/YoutubeButton"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:background="@android:color/transparent"
@@ -337,12 +308,15 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/EventAbout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
+                        android:layout_gravity="end"
                         android:fontFamily="@font/open_sans"
-                        android:maxLines="5"
                         android:padding="2dp"
+                        android:lineSpacingExtra="1dp"
+                        android:justificationMode="inter_word"
                         android:text="@string/lorem_isupum_para"
                         android:textAlignment="gravity"
                         android:textColor="@color/TagLineColor" />
@@ -353,62 +327,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:scrollbars="none"
                     android:measureAllChildren="true">
 
                     <LinearLayout
+                        android:id="@+id/EventTagsLinearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:scrollbars="none"
+                        android:scrollIndicators="none"
+                        android:fadeScrollbars="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
                         android:orientation="horizontal"
                         android:weightSum="10">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_weight="1"
-
-                            android:background="@drawable/actionbaricon_light"
-                            android:paddingStart="15dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="8dp"
-                            android:text="CTF"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="12dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_weight="1"
-
-                            android:background="@drawable/actionbaricon_light"
-                            android:paddingStart="15dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="8dp"
-                            android:text="Security"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="12dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_weight="1"
-
-                            android:background="@drawable/actionbaricon_light"
-                            android:paddingStart="15dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="8dp"
-                            android:text="Cyber-sec"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="12dp" />
 
                     </LinearLayout>
 
@@ -432,15 +365,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins"
-                        android:text="View All"
-                        android:textSize="14dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -462,19 +386,24 @@
                         android:paddingBottom="5dp">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/EventTimilineTitle"
+                            android:layout_width="200dp"
+                            android:singleLine="true"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
                             android:fontFamily="@font/poppins"
                             android:text="Introduction To Cloud"
                             android:textColor="@color/black"
                             android:textStyle="bold"
+                            android:gravity="start"
+                            android:ellipsize="end"
+                            app:layout_constrainedWidth="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
 
                         <TextView
+                            android:id="@+id/Timmings"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_baseline_access_time_24"
@@ -490,45 +419,6 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/actionbaricon_light"
-                        android:orientation="horizontal"
-                        android:paddingStart="15dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="15dp"
-                        android:paddingBottom="5dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/poppins"
-                            android:text="GCP Portal"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_baseline_access_time_24"
-                            android:drawablePadding="3dp"
-                            android:drawableTint="@color/TagLineColor"
-                            android:fontFamily="@font/poppins"
-                            android:text="Jan 27, 07:00 PM"
-                            android:textAlignment="textEnd"
-                            android:textSize="12dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
 
                 <Button

@@ -18,7 +18,6 @@
         android:background="@drawable/overbox"
         android:elevation="50dp"
         android:padding="20dp"
-        android:translationZ="10dp"
         android:visibility="gone">
 
 
@@ -70,8 +69,10 @@
         tools:layout="@layout/fragment_home" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/DashboardInternetConnection"
         android:layout_width="wrap_content"
         android:visibility="gone"
+        android:translationZ="100dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/FragmentTabHost"
         android:layout_alignParentStart="true"
@@ -81,14 +82,13 @@
             android:id="@+id/InternetStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/BackOnline"
+            android:background="@color/NoInternet"
             android:fontFamily="@font/poppins"
             android:padding="2dp"
-            android:text="Connected to internet"
+            android:text="Internet not available"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="14dp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

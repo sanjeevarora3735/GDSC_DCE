@@ -1,4 +1,4 @@
-package com.sanjeev.gdscdce;
+package com.sanjeev.gdscdce.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
+import com.sanjeev.gdscdce.R;
 
 import java.util.ArrayList;
 

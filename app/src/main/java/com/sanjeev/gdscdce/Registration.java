@@ -102,15 +102,15 @@ try {
             }
 
             // For Name Verification
-            char[] NameArr = Name.toCharArray();
-            for (char character : NameArr) {
-                if (Character.isDigit(character)) {
-                    ErrorTextView.setVisibility(View.VISIBLE);
-                    ErrorTextView.setText(R.string.name_error);
-                    _isErrorOccurs = true;
-                    break;
-                }
-            }
+//            char[] NameArr = Name.toCharArray();
+//            for (char character : NameArr) {
+//                if (Character.isDigit(character)) {
+//                    ErrorTextView.setVisibility(View.VISIBLE);
+//                    ErrorTextView.setText(R.string.name_error);
+//                    _isErrorOccurs = true;
+//                    break;
+//                }
+//            }
 
             // For Telephone Verification
             char[] ContactArr = ContactNumber.toCharArray();
@@ -126,19 +126,8 @@ try {
             if (!_isErrorOccurs) {
                 if (null == LoggedEmail) throw new AssertionError();
                 FirebaseFirestore.getInstance().collection("GDSC_DCE").document("Users_Information")
-                        .collection("Registration_Details").document(LoggedEmail).set(new Registration_Model(Name, ContactNumber, Invite_RoleCode)).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                startActivity(new Intent(Registration.this, DashBoard.class));
-                            }
-                        })
-
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Registration.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        .collection("Registration_Details").document(LoggedEmail).set(new Registration_Model(Name, ContactNumber, Invite_RoleCode)).addOnSuccessListener(unused -> startActivity(new Intent(Registration.this, DashBoard.class)))
+                        .addOnFailureListener(e -> Toast.makeText(Registration.this, e.getMessage(), Toast.LENGTH_SHORT).show());
             }
 
 

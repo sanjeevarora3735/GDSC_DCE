@@ -1,21 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="120dp">
 
     <LinearLayout
+        android:id="@+id/LinearLayoutProject"
         android:layout_width="match_parent"
-android:layout_marginStart="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="20dp"
         android:layout_height="match_parent"
-        android:backgroundTint="#1933A856"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
         android:background="@drawable/projectcard"
+        android:backgroundTint="#2833A856"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/ProjectTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:gravity="start"
+                    android:paddingEnd="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Tic Tac Toe"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/ProjectOwner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="end"
+                    android:fontFamily="@font/poppins"
+                    android:text=":- Sanjeev Arora"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ProjectDescriptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins"
+                    android:maxLines="3"
+                    app:layout_constrainedWidth="true"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/lorem_isupum_para"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/ProjectImage"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ProjectImage"
+                    android:layout_width="60dp"
+                    app:layout_constrainedWidth="true"
+                    android:layout_marginEnd="10dp"
+                    android:adjustViewBounds="true"
+                    android:layout_height="60dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ProjectUser"
+                    android:src="@drawable/profile_image"
+                    app:layout_constraintStart_toEndOf="@id/ProjectDescriptionTextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

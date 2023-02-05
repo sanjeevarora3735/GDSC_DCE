@@ -1,14 +1,18 @@
 package com.sanjeev.gdscdce.Adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.sanjeev.gdscdce.R;
@@ -50,6 +54,7 @@ public class Upcoming_ViewPageAdapter extends PagerAdapter {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.walkthrough_slider, container, false);
+        View view2 = layoutInflater.inflate(R.layout.activity_walkthrough, container, false);
 
         ImageView WalkthroughImage = view.findViewById(R.id.WalkthroughImage);
         TextView slideHeading = view.findViewById(R.id.Heading);
@@ -58,6 +63,7 @@ public class Upcoming_ViewPageAdapter extends PagerAdapter {
         WalkthroughImage.setImageResource(Images[position]);
         slideHeading.setText(Heading[position]);
         slideDescription.setText(Description[position]);
+
 
         container.addView(view);
 

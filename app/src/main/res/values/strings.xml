@@ -3,7 +3,7 @@
     <string name="DemoString">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget lacus eu dolor ornare interdum.</string>
     <string name="lorem_isupum">Lorem Isupum</string>
     <string name="username_usage">* Your subsequent GDSC DCE certificates will include these details, and the core team will use them to get in touch with you when necessary.</string>
-    <string name="name_error">* Please enter your name using standard format.</string>
+    <string name="name_error">* Please enter your email using standard format.</string>
     <string name="SeeInterest">Join in your interested community to learn More</string>
     <string name="JoinCommunity">Simply <a href="https://www.google.com">click here</a> to sign up for our GDSC DCE Community.</string>
     <string name="lorem_isupum_para">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.</string>
@@ -13,4 +13,18 @@
     <string name="DemoEventDescription">Android Compose Camp is an event where attendees are exposed to the first-hand experience of Android development using the latest tools and resources by the best at GDSC – DCE. We are more than happy to announce that we are already on the 3rd session for the season and with this session, the attendees will get level up to work on the stepping stones of Kotlin.This will surely be a great adventure for the ones new to Android as well as for the people who have experience in android this can be a fun revisit.</string>
     <string name="DemoEventTimings">Sun, Sep 25, 2022, 12:00 PM (IST)</string>
     <string name="DemoEventYoutube">https://img.youtube.com/vi/SxsTMNT-SQk/maxresdefault.jpg</string>
+    <string name="msg_token_fmt">HELLO</string>
+    <string name="title_activity_upload_project">UploadProject</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="SampleUrl"><![CDATA[www.github.com/<username>/<project>]]></string>
+    <string name="repohelper">Project url should include the project repo only</string>
+    <string name="Developer_App">Sanjeev Arora</string>
+    <string name="GDSC_Page">https://gdsc.community.dev/dronacharya-college-of-engineering-gurugram/</string>
 </resources>

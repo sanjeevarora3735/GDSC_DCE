@@ -1,21 +1,36 @@
 package com.sanjeev.gdscdce.fragments;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+import static com.sanjeev.gdscdce.fragments.ExploreFragment.SHARED_PREFERENCES;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.sanjeev.gdscdce.EditProfile;
+import com.sanjeev.gdscdce.Model.CTMembers;
+import com.sanjeev.gdscdce.Model.Registration_Model;
 import com.sanjeev.gdscdce.R;
+import com.sanjeev.gdscdce.Walkthrough;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
@@ -23,13 +38,30 @@ public class ProfileFragment extends Fragment {
 
     private View view = null;
     private ShapeableImageView UserProfileImage;
+    private TextView EditProfileTextView, AboutMeTagLine, LogOutText, UserProfileName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         // Inflate the layout for this fragment
-         view = inflater.inflate(R.layout.fragment_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        EditProfileTextView = view.findViewById(R.id.EditProfileTextView);
+        AboutMeTagLine = view.findViewById(R.id.AboutMeTagLine);
+        LogOutText = view.findViewById(R.id.LogOutText);
+        UserProfileName = view.findViewById(R.id.UserProfileName);
+
+
+        LogOutText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getContext(), Walkthrough.class));
+            }
+        });
+
+        SetupAboutMeTagLine();
 
         // initiating the tabhost
         TabHost tabhost = view.findViewById(R.id.FragmentTabHost);
@@ -59,20 +91,65 @@ public class ProfileFragment extends Fragment {
         // Settingup the UserProfile Data To Profile Activity
         try {
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImage);
-            TextView UserProfileName = view.findViewById(R.id.UserProfileName);
-                    UserProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            UserProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         } catch (Exception e) {
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+        EditProfileTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), EditProfile.class));
+            }
+        });
+        return view;
+    }
 
-         return view;
+    private void SetupAboutMeTagLine() {
+        String Username = FetchUserBasicInformation().getUsername();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference AllProjectsDatabaseReference = database.getReference("/OrganizersInformation/Members/");
+
+        // Read from the database
+
+        AllProjectsDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    CTMembers Member = postSnapshot.getValue(CTMembers.class);
+
+                    if (Member.getName().contains(Username)) {
+                        UserProfileName.setText(Member.getName());
+                        AboutMeTagLine.setText(Member.getTitle() + " at GDSC DCE ");
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
+
+
+    private Registration_Model FetchUserBasicInformation() {
+        SharedPreferences sharedPref = getContext().getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        String CollegeMail = sharedPref.getString("CMail", null);
+        String ContactNumber = sharedPref.getString("ContactNumber", null);
+        String InviteCode = sharedPref.getString("InviteCode", null);
+
+        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode);
+        return BasicInformation;
+    }
+
 
     @Override
     public void onStart() {
         super.onStart();
-        Toast.makeText(getContext(), "Refreshed Profile Fragment", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "Refreshed Profile Fragment", Toast.LENGTH_SHORT).show();
     }
 }

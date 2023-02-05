@@ -3,6 +3,7 @@ package com.sanjeev.gdscdce;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -18,6 +19,8 @@ public class Walkthrough extends AppCompatActivity {
     private ViewPager mSLideViewPager;
     // Declaring the Next Button For The Slider
     private ImageButton NextButton;
+    private long pressedTime;
+
 
 
     @Override
@@ -42,6 +45,16 @@ public class Walkthrough extends AppCompatActivity {
                 startActivity(new Intent(Walkthrough.this, GoogleSignin.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            finishAffinity();
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        pressedTime = System.currentTimeMillis();
     }
 
     // Function To Get The Current Pager_ID

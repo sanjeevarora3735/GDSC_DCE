@@ -1,6 +1,7 @@
 package com.sanjeev.gdscdce.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,25 +11,32 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.sanjeev.gdscdce.EventOverview;
 import com.sanjeev.gdscdce.Model.PastEvents;
+import com.sanjeev.gdscdce.ProjectView;
 import com.sanjeev.gdscdce.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter_PastEvents extends RecyclerView.Adapter<RecyclerViewAdapter_PastEvents.ViewHolder> {
     private final Context context;
-    private final List<PastEvents> pastEventsList;
+    private List<PastEvents> pastEventsList;
 
-    public RecyclerViewAdapter(Context context, List<PastEvents> pasteEventsList) {
+    public RecyclerViewAdapter_PastEvents(Context context, List<PastEvents> pasteEventsList) {
         this.context = context;
         this.pastEventsList = pasteEventsList;
     }
 
+    public void filterlist(ArrayList<PastEvents> filteredlist){
+        pastEventsList = filteredlist;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter_PastEvents.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_cardview, parent, false);
 
@@ -36,10 +44,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter_PastEvents.ViewHolder holder, int position) {
 
         PastEvents Event = pastEventsList.get(position);
-//        holder.CardImageView.setImageURI("");
         try {
             Picasso.get().load(Event.getYoutube()).into(holder.CardImageView);
         }catch (Exception e){
@@ -67,6 +74,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void onClick(View view) {
 
             int CurrentCardId = this.getAdapterPosition();
+            Intent EventIntent = new Intent(context, EventOverview.class);
+            EventIntent.putExtra("AccessedUrl", pastEventsList.get(getAdapterPosition()).getAccessedUrl());
+            context.startActivity(EventIntent);
 
             Toast.makeText(context, "Item Clicked =>  "+pastEventsList.get(CurrentCardId).getEventTitle(), Toast.LENGTH_SHORT).show();
         }

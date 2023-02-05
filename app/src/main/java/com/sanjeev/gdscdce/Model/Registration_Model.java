@@ -3,6 +3,7 @@ package com.sanjeev.gdscdce.Model;
 public class Registration_Model {
     private String Username, Contact_Number, InviteCode;
 
+    public Registration_Model(){}
     public Registration_Model(String username, String contact_Number, String inviteCode) {
         Username = username;
         Contact_Number = contact_Number;

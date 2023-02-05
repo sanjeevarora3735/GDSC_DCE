@@ -25,10 +25,14 @@
     <color name="stats_20">#AE7E0F</color>
     <color name="profile_20">#5B37B7</color>
 
-    <color name="home">#1194AA</color>
-    <color name="explore">#C9379D</color>
-    <color name="stats">#AE7E0F</color>
-    <color name="profile">#5B37B7</color>
+    <color name="home">#2ECDF9</color>
+    <color name="explore">#809CE4</color>
+    <color name="stats">#36D39A</color>
+    <color name="profile">#F7E477</color>
+
+
     <color name="NoInternet">#E6000000</color>
     <color name="BackOnline">#F833A856</color>
+    <color name="EvenProjectColor">#4BF2CA5A</color>
+    <color name="OddProjectColor">#4B33A856</color>
 </resources>

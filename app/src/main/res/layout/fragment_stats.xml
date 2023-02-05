@@ -11,6 +11,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/FloatingActionMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@android:color/transparent"
+            android:translationZ="10000dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:menu_buttonToggleAnimation="@null"
+            app:menu_colorNormal="@color/white"
+            app:menu_colorPressed="@color/white"
+            app:menu_colorRipple="@color/white"
+            app:menu_fab_label=""
+            app:menu_fab_size="normal"
+            app:menu_icon="@drawable/upload"
+            app:menu_openDirection="up"
+            app:menu_showShadow="true">
+
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/Resources"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/stamp"
+                app:fabSize="auto"
+                android:visibility="gone"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="@color/white"
+                app:fab_colorRipple="@color/white" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/UploadProject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/github"
+                app:fabSize="auto"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="@color/white"
+                app:fab_colorRipple="@color/white" />
+
+
+        </com.github.clans.fab.FloatingActionMenu>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ActionBarLinearLayout"
             android:layout_width="match_parent"
@@ -154,7 +199,8 @@
                 app:layout_constrainedHeight="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ProjectSection" />
+                app:layout_constraintTop_toBottomOf="@+id/ProjectSection"
+                tools:ignore="SpeakableTextPresentCheck" />
 
 
             <LinearLayout
@@ -203,6 +249,7 @@
                     android:fontFamily="@font/poppins"
                     android:text="Make an effort to put your project in our showcase."
                     android:textSize="12dp" />
+
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -212,7 +259,10 @@
                 android:nestedScrollingEnabled="true"
                 app:layout_constrainedHeight="true"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/AllProjectSection"
+                tools:ignore="SpeakableTextPresentCheck"
                 tools:listitem="@layout/normalprojects" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

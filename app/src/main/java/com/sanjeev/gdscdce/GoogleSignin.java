@@ -90,7 +90,7 @@ public class GoogleSignin extends AppCompatActivity {
                                                         startActivity(new Intent(GoogleSignin.this, DashBoard.class));
                                                     }else{
                                                         startActivity(new Intent(getApplicationContext(), Registration.class));
-                                                        Toast.makeText(GoogleSignin.this, "Tu Nhi Jayega", Toast.LENGTH_SHORT).show();
+//                                                        Toast.makeText(GoogleSignin.this, "Tu Nhi Jayega", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }else{
                                                     Toast.makeText(GoogleSignin.this, "Error", Toast.LENGTH_SHORT).show();

@@ -25,12 +25,17 @@
         <item name="windowSplashScreenAnimationDuration">100000</item>
 
     </style>
+    <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/Google_Green</item>
+        <item name="colorControlActivated">@color/Google_Green</item>
+        <item name="colorControlHighlight">@color/Google_Green</item>
+    </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>
     <style name="ShapeAppearanceOverlay.App.EventsPoster" parent="">
-        <item name="cornerSize">20dp</item>
+        <item name="cornerSize">5dp</item>
     </style>
     <style name="ShapeAppearanceOverlay.App.ProjectUser" parent="">
         <item name="cornerSize">10dp</item>
@@ -44,6 +49,13 @@
         <item name="cornerSize">50%</item>
         <item name="android:padding">50dp</item>
     </style>
+    <style name="Theme.GDSCDCE.GetStarted.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.GDSCDCE.GetStarted.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.GDSCDCE.GetStarted.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>
