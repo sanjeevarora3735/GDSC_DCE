@@ -121,7 +121,7 @@ public class StatsFragment extends Fragment {
         String ContactNumber = sharedPref.getString("ContactNumber", null);
         String InviteCode = sharedPref.getString("InviteCode", null);
 
-        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode);
+        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode,"","","");
         return BasicInformation;
     }
 

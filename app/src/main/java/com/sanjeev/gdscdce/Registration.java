@@ -22,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.sanjeev.gdscdce.Model.Registration_Model;
 import com.squareup.picasso.Picasso;
 
+import java.util.regex.Pattern;
+
 public class Registration extends AppCompatActivity {
 
     // Declaring Input Fields To Store Registrations in Firebase
@@ -93,11 +95,16 @@ try {
             // Empty Text Verification
             if (!(Name.length() > 0)) {
                 ErrorTextView.setVisibility(View.VISIBLE);
-                ErrorTextView.setText("* Please enter your name using standard format.");
+                ErrorTextView.setText("* Please enter your email using standard format.");
                 _isErrorOccurs = true;
             } else if ((ContactNumber.length() < 10)) {
                 ErrorTextView.setVisibility(View.VISIBLE);
                 ErrorTextView.setText("* Please enter your contact using standard format.");
+                _isErrorOccurs = true;
+            }if(!(isValid(Name) && Name.contains("dronacharya.info"))){
+
+                ErrorTextView.setVisibility(View.VISIBLE);
+                ErrorTextView.setText("* Please enter your college email in standard format.");
                 _isErrorOccurs = true;
             }
 
@@ -126,12 +133,26 @@ try {
             if (!_isErrorOccurs) {
                 if (null == LoggedEmail) throw new AssertionError();
                 FirebaseFirestore.getInstance().collection("GDSC_DCE").document("Users_Information")
-                        .collection("Registration_Details").document(LoggedEmail).set(new Registration_Model(Name, ContactNumber, Invite_RoleCode)).addOnSuccessListener(unused -> startActivity(new Intent(Registration.this, DashBoard.class)))
+                        .collection("Registration_Details").document(LoggedEmail).set(new Registration_Model(Name, ContactNumber, Invite_RoleCode, "", "", "")).addOnSuccessListener(unused -> startActivity(new Intent(Registration.this, DashBoard.class)))
                         .addOnFailureListener(e -> Toast.makeText(Registration.this, e.getMessage(), Toast.LENGTH_SHORT).show());
             }
 
 
         });
 
+
+
+    }
+    public static boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
     }
 }

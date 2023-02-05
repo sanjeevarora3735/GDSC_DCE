@@ -91,7 +91,7 @@ public class ProjectView extends AppCompatActivity {
         String ContactNumber = sharedPref.getString("ContactNumber", null);
         String InviteCode = sharedPref.getString("InviteCode", null);
 
-        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode);
+        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode,"","","");
         return BasicInformation;
     }
 
@@ -156,7 +156,7 @@ public class ProjectView extends AppCompatActivity {
                             AnimatedLoader_Rl.setVisibility(View.VISIBLE);
                             DatabaseReference db = FirebaseDatabase.getInstance().getReference("/ProjectsInformation/AllProjects/");
                             HashMap ProjectDetails = new HashMap();
-                            ProjectDetails.put("ProjectApprovalMentor", FetchUserBasicInformation().getUsername());
+                            ProjectDetails.put("ProjectApprovalMentor", FetchUserBasicInformation().getUsername().split(".")[0]);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 ProjectDetails.put("ProjectApprovalDate", String.valueOf(LocalDate.now()));
                             }else{

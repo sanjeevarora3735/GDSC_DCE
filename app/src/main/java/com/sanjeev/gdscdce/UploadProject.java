@@ -113,7 +113,7 @@ public class UploadProject extends AppCompatActivity {
         String InviteCode = sharedPref.getString("InviteCode", null);
         ProjectCounter = sharedPref.getString("TotalProjects", null);
 
-        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode);
+        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode,"","","");
         return BasicInformation;
     }
 
@@ -136,9 +136,9 @@ public class UploadProject extends AppCompatActivity {
 
             AllProjects NewProject = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                NewProject = new AllProjects(ProjectName, ProjectID, GithubUrl, ProjectDescription, DeveloperImage, ProjectTags, FetchUserBasicInformation().getUsername(), "", LocalDate.now().toString() , "", "", false);
+                NewProject = new AllProjects(ProjectName, ProjectID, GithubUrl, ProjectDescription, DeveloperImage, ProjectTags, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "", LocalDate.now().toString() , "", "", false);
             }else{
-                NewProject = new AllProjects(ProjectName, ProjectID, GithubUrl, ProjectDescription, DeveloperImage, ProjectTags, FetchUserBasicInformation().getUsername(), "", "Min-SdkFalse" , "", "", false);
+                NewProject = new AllProjects(ProjectName, ProjectID, GithubUrl, ProjectDescription, DeveloperImage, ProjectTags, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "", "Min-SdkFalse" , "", "", false);
             }
 
             AnimationLoader.setVisibility(View.VISIBLE);

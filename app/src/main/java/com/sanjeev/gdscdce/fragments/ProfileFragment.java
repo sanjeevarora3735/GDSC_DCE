@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sanjeev.gdscdce.EditProfile;
 import com.sanjeev.gdscdce.Model.CTMembers;
 import com.sanjeev.gdscdce.Model.Registration_Model;
@@ -106,24 +108,24 @@ public class ProfileFragment extends Fragment {
     }
 
     private void SetupAboutMeTagLine() {
-        String Username = FetchUserBasicInformation().getUsername();
-
+        String Username = FetchUserBasicInformation().getUsername().split(".")[0];
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference AllProjectsDatabaseReference = database.getReference("/OrganizersInformation/Members/");
-
         // Read from the database
-
         AllProjectsDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     CTMembers Member = postSnapshot.getValue(CTMembers.class);
 
-                    if (Member.getName().contains(Username)) {
-                        UserProfileName.setText(Member.getName());
+                    if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName().contains(Username)) {
+                        UserProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                         AboutMeTagLine.setText(Member.getTitle() + " at GDSC DCE ");
                         break;
                     }
+                }
+                if(AboutMeTagLine.getText().toString() == null || AboutMeTagLine.getText().toString() == ""){
+                    AboutMeTagLine.setText("I'm enjoying this GDSC DCE, hey!");
                 }
             }
 
@@ -142,7 +144,7 @@ public class ProfileFragment extends Fragment {
         String ContactNumber = sharedPref.getString("ContactNumber", null);
         String InviteCode = sharedPref.getString("InviteCode", null);
 
-        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode);
+        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode ,"","","");
         return BasicInformation;
     }
 
