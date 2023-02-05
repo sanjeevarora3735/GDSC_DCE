@@ -1,6 +1,10 @@
 # GDSC DCE
 
-Hi Everyone, I'm sanjeev arora developer of this application as well as App-Dev Lead for the session 2022-23. This application is developed for our college's GDSC Community, In this application students have the following features:
+Hi Everyone, I'm sanjeev arora developer of this application as well as App-Dev Lead for the session 2022-23. This application is developed for our college's GDSC Community,
+
+<b>Tech Used : Java, XML, Firebase</b>
+
+In this application students have the following features:
 
     0. Every student learns about the GDSC Community, including its leaders and core team members.
     
