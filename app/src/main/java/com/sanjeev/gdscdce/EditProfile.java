@@ -52,9 +52,9 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 HashMap AdditionalDetails = new HashMap<>();
-                AdditionalDetails.put("Branch", Branch.getText().toString());
-                AdditionalDetails.put("Semester", Semester.getText().toString());
-                AdditionalDetails.put("AboutMe", AboutMe.getText().toString());
+                AdditionalDetails.put("branch", Branch.getText().toString());
+                AdditionalDetails.put("semester", Semester.getText().toString());
+                AdditionalDetails.put("aboutMe", AboutMe.getText().toString());
                 FirebaseFirestore.getInstance().collection("GDSC_DCE").document("Users_Information")
                         .collection("Registration_Details").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase()).update(AdditionalDetails).addOnSuccessListener(unused -> EditProfile.super.onBackPressed())
                         .addOnFailureListener(e -> Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show());
@@ -77,11 +77,12 @@ public class EditProfile extends AppCompatActivity {
                 Semester.setText(UpdateModel.getSemester());
 
                 if(AboutMe.getText().length() >0) {
-
                     Username.setEnabled(false);
                     AboutMe.setEnabled(false);
                     Branch.setEnabled(false);
                     Semester.setEnabled(false);
+                }else{
+                    AboutMe.setText("I'm enjoying this GDSC DCE, hey!");
                 }
             }
         });

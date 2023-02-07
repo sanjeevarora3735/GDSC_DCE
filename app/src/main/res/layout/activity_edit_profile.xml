@@ -188,6 +188,7 @@
             app:hintEnabled="false"
             app:counterMaxLength="50"
             app:startIconTint="@color/TagLineColor"
+
             app:hintTextColor="@color/TagLineColor"
             app:startIconDrawable="@drawable/ic_baseline_cruelty_free_24">
 

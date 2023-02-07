@@ -106,15 +106,20 @@ public class ExploreFragment extends Fragment {
         ArrayList<PastEvents> FilteredPastEvents = new ArrayList<>();
         for (PastEvents pastEvent : PastEventsArrayList) {
 
-            if(pastEvent.getEventTitle() .toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))){
+            if(s.contains("All Categories")){
+                FilteredPastEvents.add(pastEvent);
+            }
+            else if(pastEvent.getEventTitle() .toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))){
                 FilteredPastEvents.add(pastEvent);
             }else if(pastEvent.getEventDescription().toLowerCase().contains(s.toLowerCase())){
+                FilteredPastEvents.add(pastEvent);
+            }else if(pastEvent.getEventDescription().toLowerCase().contains(s.split(" ")[0].toLowerCase())){
                 FilteredPastEvents.add(pastEvent);
             }
 
         }
         if(FilteredPastEvents.isEmpty()){
-            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
         }else{
             PastEventRecyclerViewAdapter.filterlist(FilteredPastEvents);
         }
@@ -129,6 +134,9 @@ public class ExploreFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     TextView SelectedTag = (TextView) TagsLinearLayout.getChildAt(finalChildrenAt);
+
+                    searchView.setQuery(SelectedTag.getText().toString(), true);
+
                     SelectedTag.setTextColor(getResources().getColor(R.color.white));
                     SelectedTag.requestFocus();
                     SelectedTag.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Google_Blue)));

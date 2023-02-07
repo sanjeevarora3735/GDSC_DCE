@@ -299,7 +299,7 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:gravity="center"
-                                android:text="1,023"
+                                android:text="0"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -315,7 +315,7 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:gravity="center"
-                                android:text="3,056"
+                                android:text="0"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -331,7 +331,7 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:gravity="center"
-                                android:text="10k"
+                                android:text="0"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
