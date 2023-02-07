@@ -6,6 +6,19 @@ public class Registration_Model {
     private String InviteCode;
     private String Branch;
     private String Semester;
+    private String AboutMe;
+
+    public Registration_Model() {
+    }
+
+    public Registration_Model(String username, String contact_Number, String inviteCode, String branch, String semester, String aboutMe) {
+        Username = username;
+        Contact_Number = contact_Number;
+        InviteCode = inviteCode;
+        Branch = branch;
+        Semester = semester;
+        AboutMe = aboutMe;
+    }
 
     public String getBranch() {
         return Branch;
@@ -31,21 +44,12 @@ public class Registration_Model {
         AboutMe = aboutMe;
     }
 
-    private String AboutMe;
-
-    public Registration_Model(){}
-
-    public Registration_Model(String username, String contact_Number, String inviteCode, String branch, String semester, String aboutMe) {
-        Username = username;
-        Contact_Number = contact_Number;
-        InviteCode = inviteCode;
-        Branch = branch;
-        Semester = semester;
-        AboutMe = aboutMe;
-    }
-
     public String getUsername() {
         return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
     }
 
     @Override
@@ -55,10 +59,6 @@ public class Registration_Model {
                 ", Contact_Number='" + Contact_Number + '\'' +
                 ", InviteCode='" + InviteCode + '\'' +
                 '}';
-    }
-
-    public void setUsername(String username) {
-        Username = username;
     }
 
     public String getContact_Number() {

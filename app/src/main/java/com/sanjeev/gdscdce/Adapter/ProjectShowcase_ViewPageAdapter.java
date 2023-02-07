@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,24 +64,26 @@ public class ProjectShowcase_ViewPageAdapter extends PagerAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.projectshowcase_card, container, false);
 
+        LinearLayout MainLayout = view.findViewById(R.id.MainLayout);
         ImageView WalkthroughImage = view.findViewById(R.id.Poster);
         TextView slideHeading = view.findViewById(R.id.ProjectTitle);
         TextView slideDescription = view.findViewById(R.id.ProjectDescription);
 
 
+        MainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ProjectIntent = new Intent(context, ProjectView.class);
+//                Toast.makeText(context, ShowcaseProjectList.get(position).getProjectID(), Toast.LENGTH_SHORT).show();
+                ProjectIntent.putExtra("AccessedUrl", ShowcaseProjectList.get(position).getProjectID());
+                context.startActivity(ProjectIntent);
+            }
+        });
 
         Picasso.get().load(ShowcaseProjectList.get(position).getProjectPosterImageUrl()).into(WalkthroughImage);
         slideHeading.setText(ShowcaseProjectList.get(position).getProjectName());
         slideDescription.setText(ShowcaseProjectList.get(position).getProjectDescriptionBody());
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ProjectIntent = new Intent(context, ProjectView.class);
-                ProjectIntent.putExtra("AccessedUrl", ShowcaseProjectList.get(position).getProjectID());
-                context.startActivity(ProjectIntent);
-            }
-        });
 
         container.addView(view);
 

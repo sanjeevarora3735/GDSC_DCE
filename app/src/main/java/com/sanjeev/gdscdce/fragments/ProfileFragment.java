@@ -108,7 +108,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void SetupAboutMeTagLine() {
-        String Username = FetchUserBasicInformation().getUsername().split(".")[0];
+        Log.d(TAG, FetchUserBasicInformation().getUsername());
+        String Username = FetchUserBasicInformation().getUsername();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference AllProjectsDatabaseReference = database.getReference("/OrganizersInformation/Members/");
         // Read from the database

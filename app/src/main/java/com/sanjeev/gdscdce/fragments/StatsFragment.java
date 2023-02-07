@@ -168,6 +168,10 @@ public class StatsFragment extends Fragment {
 
     private void UpdateProjectShowcase(ArrayList<AllProjects> ShowcaseProjectList) {
         Log.d(TAG, "ShowcaseProjectList Array Length"+ShowcaseProjectList.size());
+        SharedPreferences sharedPref = getContext().getSharedPreferences(SHARED_PREFERENCES,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("TotalProjects", String.valueOf(ShowcaseProjectList.size()));
+        editor.apply();
         projectShowcase_viewPageAdapter = new ProjectShowcase_ViewPageAdapter(getContext(), ShowcaseProjectList);
         ProjectShowCaseViewPager.setAdapter(projectShowcase_viewPageAdapter);
 

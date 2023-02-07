@@ -43,6 +43,7 @@ public class EditProfile extends AppCompatActivity {
         AboutMe.setText("I'm enjoying this GDSC DCE, hey!");
         Branch = findViewById(R.id.BranchEditText);
         Semester = findViewById(R.id.SemesterEditText);
+        SubmitButton = findViewById(R.id.materialButton);
 
         ApplyBackendInformation();
         FetchProfileInformation();
@@ -75,10 +76,13 @@ public class EditProfile extends AppCompatActivity {
                 Branch.setText(UpdateModel.getBranch());
                 Semester.setText(UpdateModel.getSemester());
 
-                Username.setEnabled(false);
-                AboutMe.setEnabled(false);
-                Branch.setEnabled(false);
-                Semester.setEnabled(false);
+                if(AboutMe.getText().length() >0) {
+
+                    Username.setEnabled(false);
+                    AboutMe.setEnabled(false);
+                    Branch.setEnabled(false);
+                    Semester.setEnabled(false);
+                }
             }
         });
 

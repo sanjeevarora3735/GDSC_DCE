@@ -67,6 +67,8 @@ public class UploadProject extends AppCompatActivity {
             }
         });
 
+        FetchUserBasicInformation();
+
 
         Review.setOnClickListener(new View.OnClickListener() {
             @Override
