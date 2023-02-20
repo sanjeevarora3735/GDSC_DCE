@@ -12,21 +12,26 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
 import com.sanjeev.gdscdce.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class UpcomingEventAdapter extends PagerAdapter {
 
     Context context;
-    ArrayList<Integer> UpcomingEventsPosters;
-    public UpcomingEventAdapter(Context context, ArrayList<Integer> upcomingEventsPosters) {
+    String[] URLS;
+
+    public UpcomingEventAdapter(Context context, String[] URLS) {
         this.context = context;
-        UpcomingEventsPosters = upcomingEventsPosters;
+        this.URLS = URLS;
+        Toast.makeText(context, "Length of Provided Urls are : "+URLS.length, Toast.LENGTH_SHORT).show();
     }
+
+
 
     @Override
     public int getCount() {
-        return UpcomingEventsPosters.size();
+        return URLS.length;
     }
 
     @Override
@@ -49,7 +54,7 @@ public class UpcomingEventAdapter extends PagerAdapter {
             }
         });
 
-        Glide.with(context).asBitmap().load(UpcomingEventsPosters.get(position)).into(imageView);
+        Picasso.get().load(URLS[position]).into(imageView);
 
         container.addView(view, 0);
         return view;

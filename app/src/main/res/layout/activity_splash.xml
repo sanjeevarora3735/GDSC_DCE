@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="50dp"
     android:background="@color/white"
     android:theme="@style/Theme.GDSCDCE.GetStarted"
     tools:context=".SplashScreen">
@@ -15,14 +16,12 @@
         android:layout_margin="20dp"
         android:backgroundTint="@color/black"
         android:text="Start Application"
-        android:textSize="18dp"
         android:textColor="@color/white"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

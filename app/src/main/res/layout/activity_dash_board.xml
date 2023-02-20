@@ -59,7 +59,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/FragmentTabHost"
+        android:id="@+id/FragmentContainerView"
         android:name="com.sanjeev.gdscdce.fragments.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -74,7 +74,7 @@
         android:visibility="gone"
         android:translationZ="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/FragmentTabHost"
+        android:layout_alignBottom="@+id/FragmentContainerView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true">
 

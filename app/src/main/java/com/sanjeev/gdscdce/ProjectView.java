@@ -1,11 +1,14 @@
 package com.sanjeev.gdscdce;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.sanjeev.gdscdce.DashBoard.PROJECT_LIST;
 import static com.sanjeev.gdscdce.DashBoard.SHARED_PREFERENCES;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -31,6 +35,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.sanjeev.gdscdce.Model.AllProjects;
 import com.sanjeev.gdscdce.Model.Registration_Model;
@@ -45,6 +51,9 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProjectView extends AppCompatActivity {
+    final long ONE_MEGABYTE_IMAGE = 1024 * 1024;
+    private final FirebaseStorage Storage = FirebaseStorage.getInstance();
+    private final StorageReference storageRef = Storage.getReference().child("PROJECT_IMAGES");
     private String ProjectID;
     private ImageButton BackButton;
     private CircleImageView DeveloperUserProfileImage;
@@ -74,7 +83,6 @@ public class ProjectView extends AppCompatActivity {
         AnimatedLoader_Rl = findViewById(R.id.AnimatedLoader_Rl);
 
 
-
         BackButton.setOnClickListener(v -> {
             super.onBackPressed();
         });
@@ -91,7 +99,7 @@ public class ProjectView extends AppCompatActivity {
         String ContactNumber = sharedPref.getString("ContactNumber", null);
         String InviteCode = sharedPref.getString("InviteCode", null);
 
-        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode,"","","");
+        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode, "", "", "");
         return BasicInformation;
     }
 
@@ -117,6 +125,15 @@ public class ProjectView extends AppCompatActivity {
                 //Setting up the UserImage & PosterImage
                 try {
                     Picasso.get().load(Project.getProfileImageUrl()).into(DeveloperUserProfileImage);
+//                    storageRef.child(Project.getProfileImageUrl()).getBytes(ONE_MEGABYTE_IMAGE).addOnSuccessListener(bytes -> {
+//                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                        ProjectPosterImage.setImageBitmap(bitmap);
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception exception) {
+//                            Log.e(TAG, "Failed to download file", exception);
+//                        }
+//                    });
                     Picasso.get().load(Project.getProjectPosterImageUrl()).into(ProjectPosterImage);
                 } catch (Exception e) {
 //                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -149,7 +166,7 @@ public class ProjectView extends AppCompatActivity {
                 }
 
                 int finalProjectCounter = ProjectCounter;
-                if(SuccessButton.getText().toString().contains("Approve")) {
+                if (SuccessButton.getText().toString().contains("Approve")) {
                     SuccessButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -159,7 +176,7 @@ public class ProjectView extends AppCompatActivity {
                             ProjectDetails.put("ProjectApprovalMentor", FetchUserBasicInformation().getUsername().split(".")[0]);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 ProjectDetails.put("ProjectApprovalDate", String.valueOf(LocalDate.now()));
-                            }else{
+                            } else {
                                 ProjectDetails.put("ProjectApprovalDate", String.valueOf(Calendar.getInstance().getTime()));
                             }
                             db.child(String.valueOf(finalProjectCounter)).updateChildren(ProjectDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -174,16 +191,16 @@ public class ProjectView extends AppCompatActivity {
                             });
                         }
                     });
-                }else{
+                } else {
                     SuccessButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             String ProjectUrl = Project.getProjectSourceUrl();
                             Uri uri;
-                            if(ProjectUrl.contains("http")) {
-                                 uri = Uri.parse(ProjectUrl);
-                            }else{
-                                ProjectUrl = "https://"+ProjectUrl;
+                            if (ProjectUrl.contains("http")) {
+                                uri = Uri.parse(ProjectUrl);
+                            } else {
+                                ProjectUrl = "https://" + ProjectUrl;
                                 uri = Uri.parse(ProjectUrl); // missing 'http://' will cause crashed
 
                             }
@@ -202,7 +219,7 @@ public class ProjectView extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference AllProjectsDatabaseReference = database.getReference("/ProjectsInformation/AllProjects/");
 
-        ArrayList<AllProjects> AllProjectsArrayList  = new ArrayList<>();
+        ArrayList<AllProjects> AllProjectsArrayList = new ArrayList<>();
         // Read from the database
 
         AllProjectsDatabaseReference.addValueEventListener(new ValueEventListener() {

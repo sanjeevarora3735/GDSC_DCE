@@ -80,7 +80,7 @@ public class ExploreFragment extends Fragment {
             @Override
             public void onRefresh() {
 //                Toast.makeText(getContext(), "Bs... Ho Gaya Refresh", Toast.LENGTH_SHORT).show();
-                getAllPastEventsFromFirebase();
+//                getAllPastEventsFromFirebase();
                 SwipeToRefreshLayout.setRefreshing(false);
             }
         });
@@ -116,10 +116,10 @@ public class ExploreFragment extends Fragment {
             }else if(pastEvent.getEventDescription().toLowerCase().contains(s.split(" ")[0].toLowerCase())){
                 FilteredPastEvents.add(pastEvent);
             }
-
         }
         if(FilteredPastEvents.isEmpty()){
-//            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+            PastEventRecyclerViewAdapter.filterlist(PastEventsArrayList);
+            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
         }else{
             PastEventRecyclerViewAdapter.filterlist(FilteredPastEvents);
         }
@@ -130,24 +130,21 @@ public class ExploreFragment extends Fragment {
 
         for (int ChildrenAt = 0; ChildrenAt < TagsLinearLayout.getChildCount(); ChildrenAt++) {
             int finalChildrenAt = ChildrenAt;
-            TagsLinearLayout.getChildAt(ChildrenAt).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView SelectedTag = (TextView) TagsLinearLayout.getChildAt(finalChildrenAt);
+            TagsLinearLayout.getChildAt(ChildrenAt).setOnClickListener(view -> {
+                TextView SelectedTag = (TextView) TagsLinearLayout.getChildAt(finalChildrenAt);
 
-                    searchView.setQuery(SelectedTag.getText().toString(), true);
+                searchView.setQuery(SelectedTag.getText().toString(), true);
 
-                    SelectedTag.setTextColor(getResources().getColor(R.color.white));
-                    SelectedTag.requestFocus();
-                    SelectedTag.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Google_Blue)));
-                    for (int i = 0; i < TagsLinearLayout.getChildCount(); i++) {
-                        if (i == finalChildrenAt) {
-                            continue;
-                        } else {
-                            TextView tags = (TextView) TagsLinearLayout.getChildAt(i);
-                            tags.setBackgroundTintList(null);
-                            tags.setTextColor(getResources().getColor(R.color.black));
-                        }
+                SelectedTag.setTextColor(getResources().getColor(R.color.white));
+                SelectedTag.requestFocus();
+                SelectedTag.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Google_Blue)));
+                for (int i = 0; i < TagsLinearLayout.getChildCount(); i++) {
+                    if (i == finalChildrenAt) {
+                        continue;
+                    } else {
+                        TextView tags = (TextView) TagsLinearLayout.getChildAt(i);
+                        tags.setBackgroundTintList(null);
+                        tags.setTextColor(getResources().getColor(R.color.black));
                     }
                 }
             });
@@ -166,7 +163,6 @@ public class ExploreFragment extends Fragment {
         if (PastEventsArrayList == null) {
             PastEventsArrayList = new ArrayList<>();
             getAllPastEventsFromFirebase();
-//            Toast.makeText(getContext(), "Null hai ...", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -174,7 +170,6 @@ public class ExploreFragment extends Fragment {
 
         PastEventRecyclerViewAdapter = new RecyclerViewAdapter_PastEvents(getContext(), PastEventsArrayList);
         PastEventsRecyclerView.setAdapter(PastEventRecyclerViewAdapter);
-//        Toast.makeText(getContext(), "Pta nhi kya ho rha hai ,,,", Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -193,8 +188,9 @@ public class ExploreFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference PastEventsDatabaseReference = database.getReference("/EventsInformation/PastEvents/");
-        // Read from the database
 
+
+        PastEventsArrayList.clear();
         PastEventsDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

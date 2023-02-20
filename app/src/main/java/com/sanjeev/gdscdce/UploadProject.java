@@ -1,6 +1,5 @@
 package com.sanjeev.gdscdce;
 
-import static android.view.View.inflate;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.sanjeev.gdscdce.DashBoard.SHARED_PREFERENCES;
 
@@ -8,11 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.URLUtil;
@@ -20,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,18 +27,24 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.sanjeev.gdscdce.Model.AllProjects;
 import com.sanjeev.gdscdce.Model.Registration_Model;
 
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import pl.droidsonroids.gif.GifImageView;
 
 public class UploadProject extends AppCompatActivity {
 
     private static final int ImageUpload = 0;
+    private final FirebaseStorage Storage = FirebaseStorage.getInstance();
+    private final StorageReference storageRef = Storage.getReference().child("PROJECT_IMAGES");
     private EditText ProjectUrl, ProjectTitle, BreifOverview;
     private ShapeableImageView ProjectPosterImage;
     private Bitmap bitmap;
@@ -47,6 +52,10 @@ public class UploadProject extends AppCompatActivity {
     private GifImageView AnimationLoader;
     private MaterialButton Review;
     private ImageView imagebutton;
+    private String ProjectPosterUrl = "";
+    private Uri FilePath;
+    private Bitmap resizedBitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +79,12 @@ public class UploadProject extends AppCompatActivity {
         FetchUserBasicInformation();
 
 
-        Review.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ProjectToStateApproval();
+        Review.setOnClickListener(view -> {
+            try {
+                UploadProjectPosterImageToFirebase();
+            } catch (Exception e) {
+                Log.d("Project Sent To Approval ::: ", e.getMessage());
+                Toast.makeText(UploadProject.this, "Project Server is Currently Down ...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -85,7 +96,7 @@ public class UploadProject extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Choose Landscape Image "), ImageUpload);
+                startActivityForResult(Intent.createChooser(intent, "Choose Project Poster Image "), ImageUpload);
 //                Intent PickImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 //                startActivityForResult(PickImageIntent, ImageUpload);
             }
@@ -98,12 +109,23 @@ public class UploadProject extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ImageUpload && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                ProjectPosterImage.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+                FilePath = data.getData();
+                InputStream inputStream = getContentResolver().openInputStream(FilePath);
+                bitmap = BitmapFactory.decodeStream(inputStream);
+                // Reduce the size of the bitmap
+                int maxSize = 2048;
+                float ratio = Math.min((float) maxSize / bitmap.getWidth(), (float) maxSize / bitmap.getHeight());
+                int newWidth = Math.round(ratio * bitmap.getWidth());
+                int newHeight = Math.round(ratio * bitmap.getHeight());
+                resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
+                ProjectPosterImage.setImageBitmap(resizedBitmap);
+
+                
+
+            } catch (Exception e) {
+
+                Log.d("OnActivityResult", e.getMessage());
             }
         }
     }
@@ -115,8 +137,37 @@ public class UploadProject extends AppCompatActivity {
         String InviteCode = sharedPref.getString("InviteCode", null);
         ProjectCounter = sharedPref.getString("TotalProjects", null);
 
-        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode,"","","");
+        Registration_Model BasicInformation = new Registration_Model(CollegeMail, ContactNumber, InviteCode, "", "", "");
         return BasicInformation;
+    }
+
+    private void UploadProjectPosterImageToFirebase() {
+
+        try {
+
+
+            // Convert the bitmap to a byte array
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+
+
+
+
+            storageRef.child(ProjectTitle.getText().toString() + ProjectUrl.getText().toString()).putBytes(data).addOnSuccessListener(taskSnapshot -> storageRef.child(ProjectTitle.getText().toString() + ProjectUrl.getText().toString()).getDownloadUrl().addOnSuccessListener(uri1 -> {
+                ProjectPosterUrl = uri1.toString();
+                Toast.makeText(this, ProjectPosterUrl, Toast.LENGTH_LONG).show();
+                ProjectToStateApproval();
+            })).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    AnimationLoader.setVisibility(View.VISIBLE);
+                }
+            });
+        } catch (Exception e) {
+            Log.d("UploadProject ::: ", e.getMessage());
+        }
+
     }
 
     private boolean ProjectToStateApproval() {
@@ -127,23 +178,22 @@ public class UploadProject extends AppCompatActivity {
         String ProjectDescription = BreifOverview.getText().toString();
         String DeveloperImage = "";
         String ProjectTags = "";
-        String PosterImageUrl = "";
         String ProjectID = ProjectName + GithubUrl;
+
 
         try {
             DeveloperImage = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString();
         } catch (Exception e) {
         }
-        if (URLUtil.isValidUrl(GithubUrl) && GithubUrl.length() > 0 && ProjectName.length() > 0 && ProjectDescription.length() > 0) {
+        if (URLUtil.isValidUrl(GithubUrl) && GithubUrl.length() > 0 && ProjectName.length() > 0 && ProjectDescription.length() > 0 && ProjectPosterUrl.length() > 0) {
 
             AllProjects NewProject = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                NewProject = new AllProjects(ProjectName, ProjectID, GithubUrl, ProjectDescription, DeveloperImage, ProjectTags, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "", LocalDate.now().toString() , "", "", false);
-            }else{
-                NewProject = new AllProjects(ProjectName, ProjectID, GithubUrl, ProjectDescription, DeveloperImage, ProjectTags, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "", "Min-SdkFalse" , "", "", false);
+                NewProject = new AllProjects(ProjectName, ProjectID, GithubUrl, ProjectDescription, DeveloperImage, ProjectTags, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ProjectPosterUrl, LocalDate.now().toString(), "", "", false);
+            } else {
+                NewProject = new AllProjects(ProjectName, ProjectID, GithubUrl, ProjectDescription, DeveloperImage, ProjectTags, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ProjectPosterUrl, "Min-SdkFalse", "", "", false);
             }
 
-            AnimationLoader.setVisibility(View.VISIBLE);
             Log.d(TAG, (NewProject.toString()));
             try {
                 SendToReview(NewProject, ProjectCounter);
@@ -151,7 +201,7 @@ public class UploadProject extends AppCompatActivity {
                 Log.d(TAG, e.getMessage());
             }
         } else {
-            Toast.makeText(this, "Invalid Url", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please make sure to fill out all fields correctly before submitting the form", Toast.LENGTH_LONG).show();
         }
         return true;
     }

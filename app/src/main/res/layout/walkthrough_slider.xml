@@ -36,11 +36,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/DemoString"
-        android:layout_margin="15dp"
-        android:textSize="18dp"
+        android:layout_margin="20dp"
+        android:textSize="17dp"
         android:fontFamily="@font/poppins"
         android:textAlignment="center"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Heading" />

@@ -6,7 +6,6 @@ import static com.sanjeev.gdscdce.fragments.StatsFragment.PROJECT_LIST;
 import static com.sanjeev.gdscdce.fragments.StatsFragment.SHARED_PREFERENCES;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +32,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -40,9 +40,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.sanjeev.gdscdce.Adapter.UpcomingEventAdapter;
 import com.sanjeev.gdscdce.EventOverview;
+import com.sanjeev.gdscdce.Interest;
 import com.sanjeev.gdscdce.Model.AllProjects;
 import com.sanjeev.gdscdce.Model.PastEvents;
 import com.sanjeev.gdscdce.R;
@@ -50,14 +54,14 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.PrimitiveIterator;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
 
     public static final int REQUEST_PERMISSION_CODE = 777;
+    private static String[] UpcomingEventsPosters_URLS;
     private final ArrayList<Integer> UpcomingEventsPosters = new ArrayList<>();
     private ViewPager UpcomingEventsViewPager;
     private UpcomingEventAdapter upcomingEventAdapter;
@@ -67,8 +71,9 @@ public class HomeFragment extends Fragment {
     private LinearLayout PastEvent_1_LinearLayout, PastEvent_2_LinearLayout;
     private ConstraintLayout PastEvent_1, PastEvent_2;
     private TextView SignupLink;
+    private OnButtonClicklistener mListener;
     private ImageView CARD_1, CARD_2, CARD_3, CARD_4;
-
+    private String Urls = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +83,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        GetPosterImages();
 
 //        RequestSomePermissions();
 
@@ -94,9 +101,23 @@ public class HomeFragment extends Fragment {
         CARD_3 = view.findViewById(R.id.InterestCard_3);
         CARD_4 = view.findViewById(R.id.InterestCard_4);
 
+
+        CARD_1.setOnClickListener(v -> {
+            NavigateToInterests();
+        });
+        CARD_2.setOnClickListener(v -> {
+            NavigateToInterests();
+        });
+        CARD_3.setOnClickListener(v -> {
+            NavigateToInterests();
+        });
+        CARD_4.setOnClickListener(v -> {
+            NavigateToInterests();
+        });
+
         try {
             SetupLatestTwoPastEvents();
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d(TAG, e.getMessage());
         }
         //Setup ProfileImageView
@@ -109,18 +130,28 @@ public class HomeFragment extends Fragment {
         }
 
 
+        UserProfileImage.setOnClickListener(v -> {
+            // Create a new instance of the fragment that you want to navigate to
+//            ProfileFragment newFragment = new ProfileFragment();
+//            FragmentManager fragmentManager = getFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.FragmentContainerView, newFragment);
+//            fragmentTransaction.commit();
+
+            mListener.onButtonClick();
+
+        });
 
 
         // Static Version
         UpcomingEventsViewPager = view.findViewById(R.id.UpComingEventsViewPager);
         PastEventConstraintLayout = view.findViewById(R.id.PastEvent_1);
-        UpcomingEventsPosters.add(R.drawable.samplethumbnail);
-        UpcomingEventsPosters.add(R.drawable.samplethumbnail);
-        UpcomingEventsPosters.add(R.drawable.samplethumbnail);
-        UpcomingEventsPosters.add(R.drawable.samplethumbnail);
-        upcomingEventAdapter = new UpcomingEventAdapter(getContext(), UpcomingEventsPosters);
-        UpcomingEventsViewPager.setAdapter(upcomingEventAdapter);
-        SetupAutomaticViewPagerSlider();
+
+//        int UpcomingPosterCount = 3;
+//        UpcomingEventsPosters_URLS = new String[UpcomingPosterCount];
+//        UpcomingEventsPosters_URLS[0] = "https://img.youtube.com/vi/7qgdJ4NmgRc/maxresdefault.jpg";
+//        UpcomingEventsPosters_URLS[1] = "https://i.ibb.co/KXST0cX/flutter.png";
+//        UpcomingEventsPosters_URLS[2] = "https://img.youtube.com/vi/7qgdJ4NmgRc/maxresdefault.jpg";
 
 
         SignupLink.setOnClickListener(v -> {
@@ -134,28 +165,73 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    private String GetPosterImages() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("/GDSC_DCE/").document("STORAGE");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                List<String> PosterUrls = (List<String>) documentSnapshot.get("UpcomingPosterImages");
+                for (String urls : PosterUrls) {
+                    Urls += urls;
+                    Urls += "___";
+                }
+
+                UpcomingEventsPosters_URLS = Urls.split("___");
+
+
+                if(UpcomingEventsPosters_URLS.length>0 && UpcomingEventsPosters_URLS[0].length()>0 ) {
+                    Log.d("PosterImage", UpcomingEventsPosters_URLS[0]);
+                    upcomingEventAdapter = new UpcomingEventAdapter(getContext(), UpcomingEventsPosters_URLS);
+                    UpcomingEventsViewPager.setAdapter(upcomingEventAdapter);
+                    SetupAutomaticViewPagerSlider();
+                }
+
+                Log.d("PosterIMAGEURL2", Urls);
+
+
+            }
+        });
+
+
+        return Urls;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mListener = (OnButtonClicklistener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context + " must implement OnButtonClicklistener");
+        }
+    }
+
     private void RequestSomePermissions() {
 
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_NOTIFICATION_POLICY) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_NOTIFICATION_POLICY) == PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getContext(), "PermissionGranted ", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             RequestNotificationPermission();
         }
+    }
 
-
+    private void NavigateToInterests() {
+        startActivity(new Intent(getContext(), Interest.class));
     }
 
     private void RequestNotificationPermission() {
 
-        if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_NOTIFICATION_POLICY)){
-            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.ACCESS_NOTIFICATION_POLICY}, REQUEST_PERMISSION_CODE);
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_NOTIFICATION_POLICY}, REQUEST_PERMISSION_CODE);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == REQUEST_PERMISSION_CODE){
-            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
             }
         }
@@ -170,9 +246,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                int i=0;
-                for (DataSnapshot Url :  snapshot.getChildren()) {
-                    if(Url.getValue() != "") {
+                int i = 0;
+                for (DataSnapshot Url : snapshot.getChildren()) {
+                    if (Url.getValue() != "") {
                         if (i == 0)
                             Picasso.get().load(String.valueOf(Url.getValue())).into((ImageView) CARD_1);
                         if (i == 1)
@@ -228,7 +304,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
 
     private void SetupLatestTwoPastEvents() {
 
@@ -306,5 +381,9 @@ public class HomeFragment extends Fragment {
             }
         }, 10000);
 
+    }
+
+    public interface OnButtonClicklistener {
+        void onButtonClick();
     }
 }

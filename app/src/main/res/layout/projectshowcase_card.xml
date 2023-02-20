@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/gdsc_dce"
+                android:src="@drawable/gdsc_dce_gutyou"
                 app:layout_constraintBottom_toTopOf="@id/ProjectInformativePart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

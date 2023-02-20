@@ -6,12 +6,13 @@ import static com.sanjeev.gdscdce.fragments.ExploreFragment.SHARED_PREFERENCES;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sanjeev.gdscdce.EditProfile;
 import com.sanjeev.gdscdce.Model.CTMembers;
@@ -41,6 +45,7 @@ public class ProfileFragment extends Fragment {
     private View view = null;
     private ShapeableImageView UserProfileImage;
     private TextView EditProfileTextView, AboutMeTagLine, LogOutText, UserProfileName;
+    private LinearLayout MessageButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +58,11 @@ public class ProfileFragment extends Fragment {
         AboutMeTagLine = view.findViewById(R.id.AboutMeTagLine);
         LogOutText = view.findViewById(R.id.LogOutText);
         UserProfileName = view.findViewById(R.id.UserProfileName);
+        MessageButton = view.findViewById(R.id.MessageButton);
+
+        MessageButton.setOnClickListener(v->{
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/mZrsAFrKxw")));
+        });
 
 
         LogOutText.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +73,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        SetupAboutMeTagLine();
-
+        try {
+            if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+                SetupAboutMeTagLine();
+            }
+        }
+        catch (Exception e){
+            Log.d("ProfileFragment", "Null object");
+        }
         // initiating the tabhost
         TabHost tabhost = view.findViewById(R.id.FragmentTabHost);
         // setting up the tab host
@@ -126,7 +142,18 @@ public class ProfileFragment extends Fragment {
                     }
                 }
                 if(AboutMeTagLine.getText().toString() == null || AboutMeTagLine.getText().toString() == ""){
-                    AboutMeTagLine.setText("I'm enjoying this GDSC DCE, hey!");
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    DocumentReference docRef = db.collection("/GDSC_DCE/Users_Information/Registration_Details/").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase());
+                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Registration_Model UpdateModel = documentSnapshot.toObject(Registration_Model.class);
+                            AboutMeTagLine.setText(UpdateModel.getAboutMe());
+                        }
+                    });
+                    if(AboutMeTagLine.getText().toString().length() == 0) {
+                        AboutMeTagLine.setText("I'm enjoying this GDSC DCE, hey!");
+                    }
                 }
             }
 

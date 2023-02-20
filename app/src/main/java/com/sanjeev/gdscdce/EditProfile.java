@@ -9,28 +9,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sanjeev.gdscdce.Model.Registration_Model;
+import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
 public class EditProfile extends AppCompatActivity {
 
     private MaterialButton SubmitButton;
+    private ShapeableImageView profileImage;
+    private TextView JoinedTextView;
+    private ImageButton BackButton;
     private TextInputEditText Username, AboutMe, Branch , Semester;
 
     @Override
@@ -43,23 +55,38 @@ public class EditProfile extends AppCompatActivity {
         AboutMe.setText("I'm enjoying this GDSC DCE, hey!");
         Branch = findViewById(R.id.BranchEditText);
         Semester = findViewById(R.id.SemesterEditText);
+        profileImage = findViewById(R.id.UserProfileImage);
         SubmitButton = findViewById(R.id.materialButton);
+        JoinedTextView = findViewById(R.id.JoinedText);
+        BackButton = findViewById(R.id.imageButton);
+
+        BackButton.setOnClickListener(v->{
+            super.onBackPressed();
+        });
+
+
+
+        try {
+            JoinedTextView.setText("Joined "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(String.valueOf(new Date(FirebaseAuth.getInstance().getCurrentUser().getMetadata().getCreationTimestamp()))));
+        } catch (ParseException e) {
+            Log.d("EDIT_PROFILE", e.getMessage());
+        }
+
 
         ApplyBackendInformation();
         FetchProfileInformation();
 
-        SubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HashMap AdditionalDetails = new HashMap<>();
-                AdditionalDetails.put("branch", Branch.getText().toString());
-                AdditionalDetails.put("semester", Semester.getText().toString());
-                AdditionalDetails.put("aboutMe", AboutMe.getText().toString());
-                FirebaseFirestore.getInstance().collection("GDSC_DCE").document("Users_Information")
-                        .collection("Registration_Details").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase()).update(AdditionalDetails).addOnSuccessListener(unused -> EditProfile.super.onBackPressed())
-                        .addOnFailureListener(e -> Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show());
+        Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(profileImage);
 
-            }
+
+        SubmitButton.setOnClickListener(view -> {
+            HashMap AdditionalDetails = new HashMap<>();
+            AdditionalDetails.put("branch", Branch.getText().toString());
+            AdditionalDetails.put("semester", Semester.getText().toString());
+            AdditionalDetails.put("aboutMe", AboutMe.getText().toString());
+            FirebaseFirestore.getInstance().collection("GDSC_DCE").document("Users_Information")
+                    .collection("Registration_Details").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase()).update(AdditionalDetails).addOnSuccessListener(unused -> EditProfile.super.onBackPressed())
+                    .addOnFailureListener(e -> Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show());
         });
     }
 
@@ -67,23 +94,20 @@ public class EditProfile extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("/GDSC_DCE/Users_Information/Registration_Details/").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase());
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Registration_Model UpdateModel = documentSnapshot.toObject(Registration_Model.class);
-                Username.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                AboutMe.setText(UpdateModel.getAboutMe());
-                Branch.setText(UpdateModel.getBranch());
-                Semester.setText(UpdateModel.getSemester());
+        docRef.get().addOnSuccessListener(documentSnapshot -> {
+            Registration_Model UpdateModel = documentSnapshot.toObject(Registration_Model.class);
+            Username.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            AboutMe.setText(UpdateModel.getAboutMe());
+            Branch.setText(UpdateModel.getBranch());
+            Semester.setText(UpdateModel.getSemester());
 
-                if(AboutMe.getText().length() >0) {
-                    Username.setEnabled(false);
-                    AboutMe.setEnabled(false);
-                    Branch.setEnabled(false);
-                    Semester.setEnabled(false);
-                }else{
-                    AboutMe.setText("I'm enjoying this GDSC DCE, hey!");
-                }
+            if(AboutMe.getText().length() >0) {
+                Username.setEnabled(false);
+                AboutMe.setEnabled(false);
+                Branch.setEnabled(false);
+                Semester.setEnabled(false);
+            }else{
+                AboutMe.setText("I'm enjoying this GDSC DCE, hey!");
             }
         });
 

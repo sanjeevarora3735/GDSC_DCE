@@ -73,17 +73,15 @@ public class StatsFragment extends Fragment {
         UserType = FetchUserBasicInformation().getInviteCode();
         Log.d(TAG,"UserType "+ UserType);
 
-        if(UserType == "CTMember"){
-            ResourcesFloatingActionButton.setVisibility(View.VISIBLE);
-            ResourcesFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getContext(), CustomEvent.class));
-                }
-            });
-        }
-
-
+//        if(UserType.contains("CTMember")){
+//            ResourcesFloatingActionButton.setVisibility(View.VISIBLE);
+//            ResourcesFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    startActivity(new Intent(getContext(), CustomEvent.class));
+//                }
+//            });
+//        }
 
         //Setting up the UserImage
         try {

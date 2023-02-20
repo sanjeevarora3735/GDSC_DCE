@@ -1,7 +1,5 @@
 package com.sanjeev.gdscdce;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -23,11 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,12 +43,13 @@ import com.sanjeev.gdscdce.fragments.ProfileFragment;
 import com.sanjeev.gdscdce.fragments.StatsFragment;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import kotlin.jvm.internal.PropertyReference0Impl;
 
 @SuppressWarnings("all")
 
-public class DashBoard extends AppCompatActivity implements ConnectionReceiver.ReceiverListener {
+public class DashBoard extends AppCompatActivity implements ConnectionReceiver.ReceiverListener , FragmentManager.OnBackStackChangedListener, HomeFragment.OnButtonClicklistener {
 
     public final static String PAST_EVENTS_LIST = "PastEventLists";
     public final static String PROJECT_LIST = "ProjectList";
@@ -64,6 +61,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
     private TextView InternetStatus;
     private ArrayList<AllProjects> AllProjectsArrayList = new ArrayList<>();
     private ArrayList<PastEvents> PastEventsArrayList = new ArrayList<>();
+    private LinearLayout ProfileLinearLayout;
 
 
     @Override
@@ -76,6 +74,8 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
         ModalLinearLayout = findViewById(R.id.LinearLayout_Modal);
         DashboardInternetConnection = findViewById(R.id.DashboardInternetConnection);
         InternetStatus = findViewById(R.id.InternetStatus);
+
+        ProfileLinearLayout = findViewById(R.id.ProfileLayout);
 
 
 
@@ -93,11 +93,14 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
         final Fragment ProfileFragment = new ProfileFragment();
         Fragment ActiveFragment = HomeFragment;
 
+
         // FindViewByID @ LinearLayouts :: 1 To 4
         final LinearLayout HomeLayout = findViewById(R.id.HomeLayout);
         final LinearLayout ExploreLayout = findViewById(R.id.ExploreLayout);
         final LinearLayout StatsLayout = findViewById(R.id.StatsLayout);
         final LinearLayout ProfileLayout = findViewById(R.id.ProfileLayout);
+
+
 
         // FindViewByID @ LinearLayouts_Images :: 1 To 4
         final ImageView HomeLayoutImage = findViewById(R.id.HomeLayoutImage);
@@ -114,25 +117,28 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.FragmentTabHost, HomeFragment.class, null)
+                .replace(R.id.FragmentContainerView, HomeFragment.class, null)
                 .addToBackStack("HomeLayout")
                 .commit();
 
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+
+
         HomeLayout.setOnClickListener(v -> {
 
-            if (SelectedTab != 1) {
+            if (SelectedTab != 1 || true) {
 
                 getSupportFragmentManager().beginTransaction()
                         .addToBackStack("HomeLayout")
-                        .replace(R.id.FragmentTabHost, HomeFragment.class, null)
+                        .replace(R.id.FragmentContainerView, HomeFragment.class, null)
                         .commit();
                 ExploreLayoutTextView.setVisibility(View.GONE);
                 ProfileLayoutTextView.setVisibility(View.GONE);
                 StatsLayoutTextView.setVisibility(View.GONE);
 
-                StatsLayoutImage.setImageResource(R.drawable.ic_baseline_statistics_24);
-                ProfileLayoutImage.setImageResource(R.drawable.ic_round_person_4_24);
-                ExploreLayoutImage.setImageResource(R.drawable.ic_baseline_folder_24);
+//                StatsLayoutImage.setImageResource(R.drawable.ic_baseline_statistics_24);
+//                ProfileLayoutImage.setImageResource(R.drawable.ic_round_person_4_24);
+//                ExploreLayoutImage.setImageResource(R.drawable.ic_baseline_folder_24);
 
                 ExploreLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 StatsLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -141,7 +147,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
                 // Select Home Tab :
 
                 HomeLayoutTextView.setVisibility(View.VISIBLE);
-                HomeLayoutImage.setImageResource(R.drawable.ic_round_home_selected);
+//                HomeLayoutImage.setImageResource(R.drawable.ic_round_home_selected);
                 HomeLayout.setBackgroundResource(R.drawable.round_home_back_100);
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
@@ -159,16 +165,16 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
 
                 getSupportFragmentManager().beginTransaction()
                         .addToBackStack("ExploreLayout")
-                        .replace(R.id.FragmentTabHost, ExploreFragment.class, null)
+                        .replace(R.id.FragmentContainerView, ExploreFragment.class, null)
                         .commit();
 
                 HomeLayoutTextView.setVisibility(View.GONE);
                 ProfileLayoutTextView.setVisibility(View.GONE);
                 StatsLayoutTextView.setVisibility(View.GONE);
 
-                StatsLayoutImage.setImageResource(R.drawable.ic_baseline_statistics_24);
-                ProfileLayoutImage.setImageResource(R.drawable.ic_round_person_4_24);
-                HomeLayoutImage.setImageResource(R.drawable.ic_round_home_selected);
+//                StatsLayoutImage.setImageResource(R.drawable.ic_baseline_statistics_24);
+//                ProfileLayoutImage.setImageResource(R.drawable.ic_round_person_4_24);
+//                HomeLayoutImage.setImageResource(R.drawable.ic_round_home_selected);
 
                 HomeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 StatsLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -177,7 +183,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
                 // Select Home Tab :
 
                 ExploreLayoutTextView.setVisibility(View.VISIBLE);
-                ExploreLayoutImage.setImageResource(R.drawable.ic_baseline_folder_selected);
+//                ExploreLayoutImage.setImageResource(R.drawable.ic_baseline_folder_selected);
                 ExploreLayout.setBackgroundResource(R.drawable.round_explore_back_100);
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
@@ -193,7 +199,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
             if (SelectedTab != 3) {
 
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.FragmentTabHost, StatsFragment.class, null)
+                        .replace(R.id.FragmentContainerView, StatsFragment.class, null)
                         .addToBackStack("StatsLayout")
                         .commit();
 
@@ -201,9 +207,9 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
                 ProfileLayoutTextView.setVisibility(View.GONE);
                 ExploreLayoutTextView.setVisibility(View.GONE);
 
-                ExploreLayoutImage.setImageResource(R.drawable.ic_baseline_folder_24);
-                ProfileLayoutImage.setImageResource(R.drawable.ic_round_person_4_24);
-                HomeLayoutImage.setImageResource(R.drawable.ic_round_home_selected);
+//                ExploreLayoutImage.setImageResource(R.drawable.ic_baseline_folder_24);
+//                ProfileLayoutImage.setImageResource(R.drawable.ic_round_person_4_24);
+//                HomeLayoutImage.setImageResource(R.drawable.ic_round_home_selected);
 
                 HomeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 ExploreLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -212,7 +218,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
                 // Select Home Tab :
 
                 StatsLayoutTextView.setVisibility(View.VISIBLE);
-                StatsLayoutImage.setImageResource(R.drawable.ic_baseline_statistics_selected);
+//                StatsLayoutImage.setImageResource(R.drawable.ic_baseline_statistics_selected);
                 StatsLayout.setBackgroundResource(R.drawable.round_stats_back_100);
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
@@ -229,7 +235,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
 
 
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.FragmentTabHost, ProfileFragment.class, null)
+                        .replace(R.id.FragmentContainerView, ProfileFragment.class, null)
                         .addToBackStack("ProfileLayout")
                         .commit();
 
@@ -237,9 +243,9 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
                 StatsLayoutTextView.setVisibility(View.GONE);
                 ExploreLayoutTextView.setVisibility(View.GONE);
 
-                ExploreLayoutImage.setImageResource(R.drawable.ic_baseline_folder_24);
-                StatsLayoutImage.setImageResource(R.drawable.ic_baseline_statistics_24);
-                HomeLayoutImage.setImageResource(R.drawable.ic_round_home_24);
+//                ExploreLayoutImage.setImageResource(R.drawable.ic_baseline_folder_24);
+//                StatsLayoutImage.setImageResource(R.drawable.ic_baseline_statistics_24);
+//                HomeLayoutImage.setImageResource(R.drawable.ic_round_home_24);
 
                 HomeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 ExploreLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -248,7 +254,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
                 // Select Home Tab :
 
                 ProfileLayoutTextView.setVisibility(View.VISIBLE);
-                ProfileLayoutImage.setImageResource(R.drawable.ic_round_person_4_selected);
+//                ProfileLayoutImage.setImageResource(R.drawable.ic_round_person_4_selected);
                 ProfileLayout.setBackgroundResource(R.drawable.round_profile_back_100);
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
@@ -447,5 +453,22 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
         super.onPointerCaptureChanged(hasCapture);
     }
 
+
+    @Override
+    public void onBackStackChanged() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.FragmentContainerView);
+
+        if (currentFragment != null) {
+            String fragmentName = currentFragment.getClass().getSimpleName();
+            Log.d("FragmentNames", fragmentName);
+
+        }
+    }
+
+    @Override
+    public void onButtonClick() {
+        ProfileLinearLayout.performClick();
+    }
 
 }
