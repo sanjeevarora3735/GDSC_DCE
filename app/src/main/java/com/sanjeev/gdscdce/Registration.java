@@ -9,12 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,16 +26,25 @@ public class Registration extends AppCompatActivity {
     // Declaring Input Fields To Store Registrations in Firebase
     TextInputEditText UserNameEditText, TelEditText, InviteCodeEditText;
     TextInputLayout UserNameInputLayout, TelInputLayout, InviteCodeInputLayout;
-
+    String LoggedEmail = "";
     // Error TextView
     private TextView ErrorTextView;
-
     // Declaring Some Important Instances of Layout File
     private ImageView UserProfileImageView;
     private Button RegistrationButton;
     private ImageButton BackImageButton;
 
-    String LoggedEmail = "";
+    public static boolean isValid(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +54,8 @@ public class Registration extends AppCompatActivity {
 
         try {
             // Finding The Current Logged-in Email
-             LoggedEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        }catch (Exception e){
+            LoggedEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         // Assigning Values to  Some Important View
@@ -75,12 +81,12 @@ public class Registration extends AppCompatActivity {
         BackImageButton.setOnClickListener(v -> {
             super.onBackPressed();
         });
-try {
-    // Load the user profile image
-    Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImageView);
-}catch (Exception e){
-    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-}
+        try {
+            // Load the user profile image
+            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImageView);
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
         // Onclick Listener for the Registration Button
         RegistrationButton.setOnClickListener(v -> {
@@ -101,7 +107,8 @@ try {
                 ErrorTextView.setVisibility(View.VISIBLE);
                 ErrorTextView.setText("* Please enter your contact using standard format.");
                 _isErrorOccurs = true;
-            }if(!(isValid(Name) && Name.contains("dronacharya.info"))){
+            }
+            if (!(isValid(Name) && Name.contains("dronacharya.info"))) {
 
                 ErrorTextView.setVisibility(View.VISIBLE);
                 ErrorTextView.setText("* Please enter your college email in standard format.");
@@ -140,19 +147,12 @@ try {
 
         });
 
-
-
     }
-    public static boolean isValid(String email)
-    {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
 
-        Pattern pat = Pattern.compile(emailRegex);
-        if (email == null)
-            return false;
-        return pat.matcher(email).matches();
+    @Override
+    public void onBackPressed() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(Registration.this, GoogleSignin.class));
+        super.onBackPressed();
     }
 }

@@ -109,7 +109,7 @@ public class ProfileFragment extends Fragment {
         // Settingup the UserProfile Data To Profile Activity
         try {
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImage);
-            UserProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            UserProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName().split("\\(")[0]);
         } catch (Exception e) {
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -117,7 +117,9 @@ public class ProfileFragment extends Fragment {
         EditProfileTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), EditProfile.class));
+                Intent EditProfile = new Intent(getContext(),EditProfile.class);
+                EditProfile.putExtra("AboutMe", AboutMeTagLine.getText());
+                startActivity(EditProfile);
             }
         });
         return view;

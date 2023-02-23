@@ -50,9 +50,10 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+
         Username = findViewById(R.id.UsernameEditText);
         AboutMe = findViewById(R.id.AboutmeEditText);
-        AboutMe.setText("I'm enjoying this GDSC DCE, hey!");
+        AboutMe.setText(getIntent().getStringExtra("AboutMe"));
         Branch = findViewById(R.id.BranchEditText);
         Semester = findViewById(R.id.SemesterEditText);
         profileImage = findViewById(R.id.UserProfileImage);
@@ -96,7 +97,7 @@ public class EditProfile extends AppCompatActivity {
         DocumentReference docRef = db.collection("/GDSC_DCE/Users_Information/Registration_Details/").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase());
         docRef.get().addOnSuccessListener(documentSnapshot -> {
             Registration_Model UpdateModel = documentSnapshot.toObject(Registration_Model.class);
-            Username.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            Username.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName().split("\\(")[0]);
             AboutMe.setText(UpdateModel.getAboutMe());
             Branch.setText(UpdateModel.getBranch());
             Semester.setText(UpdateModel.getSemester());
@@ -116,7 +117,7 @@ public class EditProfile extends AppCompatActivity {
     private void ApplyBackendInformation() {
 
         try {
-            Username.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            Username.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName().split("\\(")[0]);
         }
         catch (Exception e){
             Log.d(TAG, e.getMessage());

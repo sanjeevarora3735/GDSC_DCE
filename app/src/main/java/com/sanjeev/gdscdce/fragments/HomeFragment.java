@@ -103,16 +103,16 @@ public class HomeFragment extends Fragment {
 
 
         CARD_1.setOnClickListener(v -> {
-            NavigateToInterests();
+            NavigateToInterests("NoIssues");
         });
         CARD_2.setOnClickListener(v -> {
-            NavigateToInterests();
+            NavigateToInterests("Android Development");
         });
         CARD_3.setOnClickListener(v -> {
-            NavigateToInterests();
+            NavigateToInterests("Web Development");
         });
         CARD_4.setOnClickListener(v -> {
-            NavigateToInterests();
+            NavigateToInterests("Designing");
         });
 
         try {
@@ -217,8 +217,10 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void NavigateToInterests() {
-        startActivity(new Intent(getContext(), Interest.class));
+    private void NavigateToInterests(String interestCategory) {
+        Intent Interest_Activity = new Intent(getContext(), Interest.class);
+        Interest_Activity.putExtra("InterestCat", interestCategory);
+        startActivity(Interest_Activity);
     }
 
     private void RequestNotificationPermission() {

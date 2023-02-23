@@ -2,6 +2,7 @@ package com.sanjeev.gdscdce;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -87,6 +88,7 @@ public class GoogleSignin extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                 if(task.isSuccessful()){
                                                     if(task.getResult().exists()){
+                                                        Log.d("Debugging", task.getResult().toString());
                                                         startActivity(new Intent(GoogleSignin.this, DashBoard.class));
                                                     }else{
                                                         startActivity(new Intent(getApplicationContext(), Registration.class));
@@ -116,7 +118,18 @@ public class GoogleSignin extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            startActivity(new Intent(GoogleSignin.this, DashBoard.class));
+            FirebaseFirestore.getInstance().collection("GDSC_DCE").document("Users_Information")
+                    .collection("Registration_Details").document(FirebaseAuth.getInstance().getCurrentUser().getEmail()).get().addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            if(task.getResult().exists()){
+                                startActivity(new Intent(GoogleSignin.this, DashBoard.class));
+                            }else{
+                                FirebaseAuth.getInstance().signOut();
+                            }
+                        }else{
+                            Toast.makeText(GoogleSignin.this, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 }

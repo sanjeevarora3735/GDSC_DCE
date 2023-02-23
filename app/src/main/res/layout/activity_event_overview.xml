@@ -155,6 +155,7 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/Bookmarkbar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
@@ -169,6 +170,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:cropToPadding="true"
+                            app:tint="@color/black"
                             android:padding="5dp"
                             android:src="@drawable/ic_outline_bookmark_border_24" />
 

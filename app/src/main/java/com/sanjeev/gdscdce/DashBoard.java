@@ -126,7 +126,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
 
         HomeLayout.setOnClickListener(v -> {
 
-            if (SelectedTab != 1 || true) {
+            if (SelectedTab != 1) {
 
                 getSupportFragmentManager().beginTransaction()
                         .addToBackStack("HomeLayout")

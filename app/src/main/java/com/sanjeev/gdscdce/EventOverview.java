@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -32,16 +34,20 @@ import java.util.ArrayList;
 public class EventOverview extends AppCompatActivity {
 
     private String AccessedUrl;
+    private CardView Bookmark;
     private TextView EventName_TopBackButtom, EventTitle_Overview, EventAbout, EventTimiline, EventTimings;
     private LinearLayout EventTagsLinearLayout, BackButtonTop;
     private ImageView EventPosterImageView;
     private Button EventRegistrationButton;
+    private boolean BookmarkedSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_overview);
 
+
+        Bookmark = findViewById(R.id.Bookmarkbar);
         EventName_TopBackButtom = findViewById(R.id.EventName_TopBackButtom);
         EventTitle_Overview = findViewById(R.id.EventTitle_Overview);
         EventAbout = findViewById(R.id.EventAbout);
@@ -51,6 +57,17 @@ public class EventOverview extends AppCompatActivity {
         BackButtonTop = findViewById(R.id.BackButtonTop);
         EventPosterImageView = findViewById(R.id.EventPosterImageView);
         EventRegistrationButton = findViewById(R.id.EventRegistrationButton);
+
+
+        Bookmark.setOnClickListener(v->{
+            if(BookmarkedSuccess) {
+                BookmarkedSuccess = false;
+                ((ImageView)Bookmark.getChildAt(0)).setImageResource(R.drawable.ic_baseline_bookmark_24);
+            }else{
+                BookmarkedSuccess = true;
+                ((ImageView)Bookmark.getChildAt(0)).setImageResource(R.drawable.ic_outline_bookmark_border_24);
+            }
+        });
 
 
         BackButtonTop.setOnClickListener(v -> {

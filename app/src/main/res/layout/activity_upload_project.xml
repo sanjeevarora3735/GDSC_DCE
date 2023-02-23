@@ -122,7 +122,7 @@
                         android:layout_height="160dp"
                         android:adjustViewBounds="true"
                         android:padding="1dp"
-                        android:scaleType="fitCenter"
+                        android:scaleType="centerInside"
                         android:src="@drawable/gdsc_dce_gutyou"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
