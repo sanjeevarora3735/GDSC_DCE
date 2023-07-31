@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Hack_o_Relay">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/HackoRelayPoster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/Hackathon_Images"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/hackathon_main_image" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/HackoRelayPoster">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/eventscheduletag"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="APR"
+                    android:textColor="@color/white"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="06 - 08"
+                    android:textColor="@color/Google_Yellow"
+                    android:textSize="14dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/EventTitle_Overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="HACK-O-RELAY 2.0"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/LocationEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/EventTitle_Overview">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_outline_location_on_24"
+                    app:tint="@color/Google_Green" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:paddingBottom="5dp"
+                    android:text="Dronacharya College of Engineering"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="By GDSC-DCE"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LocationEvent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="6"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_blur_on_24"
+                    android:drawableTint="@color/TagLineColor"
+                    android:fontFamily="@font/poppins"
+                    android:padding="2dp"
+                    android:text="Informative Session"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/TagLineColor"
+                    android:textSize="13dp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:text="About"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/EventAbout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/open_sans"
+                        android:justificationMode="inter_word"
+                        android:lineSpacingExtra="1dp"
+                        android:padding="2dp"
+                        android:text="@string/AboutHackathon"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/TagLineColor"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Themes"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:measureAllChildren="true"
+                    android:scrollbars="none">
+
+
+                    <LinearLayout
+                        android:id="@+id/Themes_Hackathon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="10dp">
+
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@drawable/blockchain"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@drawable/arvr_technology"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@drawable/fintech"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@drawable/internet_of_things"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@drawable/health_education"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@drawable/open_innovation"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:text="Hackathon Timeline"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/MentorRoundLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/hakathon_timeline"
+                    android:orientation="vertical">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/MentorRoundTextView"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="start"
+                            android:singleLine="true"
+                            android:text="Mentor Round"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/Timmings1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_access_time_24"
+                            android:drawablePadding="3dp"
+                            android:drawableTint="@color/TagLineColor"
+                            android:fontFamily="@font/poppins"
+                            android:text=" Day 1"
+                            android:textAlignment="textEnd"
+                            android:textSize="12dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/expanded_menu_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:justificationMode="inter_word"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/mentorround"
+                        android:textSize="12dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/PPTRoundLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/hakathon_timeline"
+                    android:orientation="vertical">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/PPTPresentationTextView"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="start"
+                            android:singleLine="true"
+                            android:text="PPT PRESENTATION ROUND"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/Timmings3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_access_time_24"
+                            android:drawablePadding="3dp"
+                            android:drawableTint="@color/TagLineColor"
+                            android:fontFamily="@font/poppins"
+                            android:text="Day 2"
+                            android:textAlignment="textEnd"
+                            android:textSize="12dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/expanded_menu_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:justificationMode="inter_word"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/pptpresentationround"
+                        android:textSize="12dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/PrototypeRoundLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/hakathon_timeline"
+                    android:orientation="vertical">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/PrototypePresentationTextView"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="start"
+                            android:singleLine="true"
+                            android:text="PROTOTYPE PRESENTATION"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/Timmings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_access_time_24"
+                            android:drawablePadding="3dp"
+                            android:drawableTint="@color/TagLineColor"
+                            android:fontFamily="@font/poppins"
+                            android:text="Day 3"
+                            android:textAlignment="textEnd"
+                            android:textSize="12dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/expanded_menu_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:justificationMode="inter_word"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/prototyperound"
+                        android:textSize="12dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Prizes"
+                    android:padding="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:measureAllChildren="true"
+                    android:scrollbars="none">
+
+
+                    <LinearLayout
+                        android:id="@+id/Prizes_Hackathon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="10dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/FirstPrize"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/SecondPrize"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/ThirdPrize"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="15dp"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <Button
+                    android:id="@+id/EventRegistrationButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/rsvpbutton"
+                    android:fontFamily="@font/poppins"
+                    android:padding="5dp"
+                    android:text="Register Now"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/FAQ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Click here for FAQs about the Hack-o-Relay" />
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

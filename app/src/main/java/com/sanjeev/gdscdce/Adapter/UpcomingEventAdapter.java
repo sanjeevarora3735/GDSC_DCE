@@ -1,6 +1,8 @@
 package com.sanjeev.gdscdce.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +12,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.bumptech.glide.Glide;
+import com.sanjeev.gdscdce.Hack_o_Relay;
 import com.sanjeev.gdscdce.R;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 public class UpcomingEventAdapter extends PagerAdapter {
 
     Context context;
-    String[] URLS;
+    String[] URLS, RSVP;
 
-    public UpcomingEventAdapter(Context context, String[] URLS) {
+    public UpcomingEventAdapter(Context context, String[] URLS, String[] RSVP) {
         this.context = context;
         this.URLS = URLS;
-        Toast.makeText(context, "Length of Provided Urls are : "+URLS.length, Toast.LENGTH_SHORT).show();
+        this.RSVP = RSVP;
     }
 
 
@@ -47,12 +47,22 @@ public class UpcomingEventAdapter extends PagerAdapter {
 
         ImageView imageView = view.findViewById(R.id.UpComingEventsPoster);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(imageView.getContext(), "Hey My ID is "+ position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(RSVP[position].contains("https://forms.gle/ne2ikZBfmNcoVwLR8")){
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent GoogleForm = new Intent(context, Hack_o_Relay.class);
+                    GoogleForm.putExtra("RSVP",RSVP[position]);
+                    context.startActivity(GoogleForm);
+                }
+            });
+        }else {
+            imageView.setOnClickListener(view1 -> {
+                Uri uri = Uri.parse(RSVP[position]);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                context.startActivity(intent);
+            });
+        }
 
         Picasso.get().load(URLS[position]).into(imageView);
 

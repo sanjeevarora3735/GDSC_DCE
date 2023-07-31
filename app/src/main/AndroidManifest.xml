@@ -12,64 +12,80 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.GDSCDCE.GetStarted"
         tools:targetApi="28">
         <activity
-            android:name=".ViewBlog"
+            android:name=".Faq"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Hack_o_Relay"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ViewBlog"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Interest"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".CustomEvent"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".SubmittedForReview"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ProjectView"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".EditProfile"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".UploadProject"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".LeaderBoard"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GDSCDCE.GetStarted">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

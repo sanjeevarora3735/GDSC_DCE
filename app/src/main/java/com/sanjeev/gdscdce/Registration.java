@@ -1,13 +1,15 @@
 package com.sanjeev.gdscdce;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -56,7 +58,7 @@ public class Registration extends AppCompatActivity {
             // Finding The Current Logged-in Email
             LoggedEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         // Assigning Values to  Some Important View
         UserProfileImageView = findViewById(R.id.CurrenUserImage);
@@ -85,7 +87,7 @@ public class Registration extends AppCompatActivity {
             // Load the user profile image
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImageView);
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         // Onclick Listener for the Registration Button
@@ -140,15 +142,30 @@ public class Registration extends AppCompatActivity {
             if (!_isErrorOccurs) {
                 if (null == LoggedEmail) throw new AssertionError();
                 FirebaseFirestore.getInstance().collection("GDSC_DCE").document("Users_Information")
-                        .collection("Registration_Details").document(LoggedEmail).set(new Registration_Model(Name, ContactNumber, Invite_RoleCode, "", "", "")).addOnSuccessListener(unused -> startActivity(new Intent(Registration.this, DashBoard.class)))
-                        .addOnFailureListener(e -> Toast.makeText(Registration.this, e.getMessage(), Toast.LENGTH_SHORT).show());
+                        .collection("Registration_Details").document(LoggedEmail).set(new Registration_Model(Name, ContactNumber, Invite_RoleCode, "", "", "I'm enjoying this GDSC DCE, hey!")).addOnSuccessListener(unused -> {
+                            SharedPreferences sharedPref = getSharedPreferences(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase(), Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putBoolean("registration_incomplete", false);
+                            editor.apply();
+                            startActivity(new Intent(Registration.this, DashBoard.class));
+                        })
+                        .addOnFailureListener(e -> {
+//                            Toast.makeText(Registration.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
             }
 
 
         });
 
     }
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences sharedPref = getSharedPreferences(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("registration_incomplete", true);
+        editor.apply();
+    }
     @Override
     public void onBackPressed() {
         FirebaseAuth.getInstance().signOut();

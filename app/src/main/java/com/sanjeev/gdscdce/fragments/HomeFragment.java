@@ -49,19 +49,22 @@ import com.sanjeev.gdscdce.EventOverview;
 import com.sanjeev.gdscdce.Interest;
 import com.sanjeev.gdscdce.Model.AllProjects;
 import com.sanjeev.gdscdce.Model.PastEvents;
+import com.sanjeev.gdscdce.Model.UpcomingEventsModel;
 import com.sanjeev.gdscdce.R;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
 
     public static final int REQUEST_PERMISSION_CODE = 777;
-    private static String[] UpcomingEventsPosters_URLS;
+    private static String[] UpcomingEventsPosters_URLS, UpcomingEventsPosters_RSVPLINK;
     private final ArrayList<Integer> UpcomingEventsPosters = new ArrayList<>();
     private ViewPager UpcomingEventsViewPager;
     private UpcomingEventAdapter upcomingEventAdapter;
@@ -126,7 +129,7 @@ public class HomeFragment extends Fragment {
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImage);
 
         } catch (Exception e) {
-            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
@@ -171,23 +174,35 @@ public class HomeFragment extends Fragment {
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                List<String> PosterUrls = (List<String>) documentSnapshot.get("UpcomingPosterImages");
-                for (String urls : PosterUrls) {
-                    Urls += urls;
+                ArrayList<Map<String, String>> UpcomingEventsFirestoreArrayList = (ArrayList<Map<String, String>>) documentSnapshot.get("UpcomingEvents");
+                ArrayList<String> UpcomingEvents_RVSP_LINK = new ArrayList<>();
+                ArrayList<String> UpcomingEvents_PosterImages = new ArrayList<>();
+                String RSVP = "";
+                for (Map<String, String> map : UpcomingEventsFirestoreArrayList) {
+                    String PosterImageUrl = map.get("PosterImageUrl");
+                    String RSVP_URL = map.get("RSVP_URL");
+
+                    // Add the fields to the string list
+                    UpcomingEvents_RVSP_LINK.add(RSVP_URL);
+                    UpcomingEvents_PosterImages.add(PosterImageUrl);
+                    RSVP +=RSVP_URL;
+                    RSVP +="___";
+                    Urls += PosterImageUrl;
                     Urls += "___";
+
                 }
-
                 UpcomingEventsPosters_URLS = Urls.split("___");
-
+                UpcomingEventsPosters_RSVPLINK = RSVP.split("___");
+                Log.d("UpcomingPosterImages : ", Arrays.toString(UpcomingEventsPosters_URLS));
 
                 if(UpcomingEventsPosters_URLS.length>0 && UpcomingEventsPosters_URLS[0].length()>0 ) {
                     Log.d("PosterImage", UpcomingEventsPosters_URLS[0]);
-                    upcomingEventAdapter = new UpcomingEventAdapter(getContext(), UpcomingEventsPosters_URLS);
+                    upcomingEventAdapter = new UpcomingEventAdapter(getContext(), UpcomingEventsPosters_URLS, UpcomingEventsPosters_RSVPLINK);
                     UpcomingEventsViewPager.setAdapter(upcomingEventAdapter);
                     SetupAutomaticViewPagerSlider();
                 }
-
-                Log.d("PosterIMAGEURL2", Urls);
+//
+//                Log.d("PosterIMAGEURL2", Urls);
 
 
             }
@@ -211,7 +226,7 @@ public class HomeFragment extends Fragment {
     private void RequestSomePermissions() {
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_NOTIFICATION_POLICY) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getContext(), "PermissionGranted ", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "PermissionGranted ", Toast.LENGTH_SHORT).show();
         } else {
             RequestNotificationPermission();
         }
@@ -234,7 +249,7 @@ public class HomeFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
             }
         }
     }

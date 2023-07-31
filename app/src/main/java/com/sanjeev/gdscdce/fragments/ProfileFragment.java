@@ -46,6 +46,7 @@ public class ProfileFragment extends Fragment {
     private ShapeableImageView UserProfileImage;
     private TextView EditProfileTextView, AboutMeTagLine, LogOutText, UserProfileName;
     private LinearLayout MessageButton;
+    private ShapeableImageView shapeableImageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +54,10 @@ public class ProfileFragment extends Fragment {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        shapeableImageView = view.findViewById(R.id.shapeableImageView);
+
+
 
         EditProfileTextView = view.findViewById(R.id.EditProfileTextView);
         AboutMeTagLine = view.findViewById(R.id.AboutMeTagLine);
@@ -111,7 +116,7 @@ public class ProfileFragment extends Fragment {
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserProfileImage);
             UserProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName().split("\\(")[0]);
         } catch (Exception e) {
-            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         EditProfileTextView.setOnClickListener(new View.OnClickListener() {

@@ -233,7 +233,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -300,7 +300,7 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:gravity="center"
-                                android:text="0"
+                                android:text="8"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -395,7 +395,9 @@
                                                 android:text="No events have been added to your saved events list yet"
                                                 android:textColor="@color/black"
                                                 android:gravity="center"
+                                                android:textSize="14dp"
                                                 android:layout_margin="20dp"
+                                                android:ems="10"
                                                 app:layout_constraintBottom_toBottomOf="parent"
                                                 app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
                                                 app:layout_constraintStart_toStartOf="parent"
@@ -408,12 +410,12 @@
                                                 android:adjustViewBounds="true"
                                                 android:background="@color/white"
                                                 android:elevation="4dp"
-                                                android:src="@drawable/samplethumbnail"
-                                                android:visibility="invisible"
+                                                android:src="@drawable/hackathon_main_image"
+                                                android:visibility="visible"
                                                 app:layout_constraintBottom_toBottomOf="parent"
                                                 app:layout_constraintStart_toStartOf="parent"
                                                 app:layout_constraintTop_toTopOf="parent"
-                                                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.EventsPoster" />
+                                                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.HackathonThemes" />
 
                                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -439,7 +441,9 @@
                                                 android:text="No courses have been added to your saved events list yet"
                                                 android:textColor="@color/black"
                                                 android:gravity="center"
+                                                android:textSize="14dp"
                                                 android:layout_margin="20dp"
+                                                android:ems="10"
                                                 app:layout_constraintBottom_toBottomOf="parent"
                                                 app:layout_constraintEnd_toEndOf="parent"
                                                 app:layout_constraintStart_toStartOf="parent"
@@ -482,7 +486,9 @@
                                                 android:text="No Projects have been added to your saved events list yet"
                                                 android:textColor="@color/black"
                                                 android:gravity="center"
+                                                android:textSize="14dp"
                                                 android:layout_margin="20dp"
+                                                android:ems="10"
                                                 app:layout_constraintBottom_toBottomOf="parent"
                                                 app:layout_constraintEnd_toEndOf="parent"
                                                 app:layout_constraintStart_toStartOf="parent"

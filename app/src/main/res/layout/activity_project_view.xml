@@ -169,7 +169,6 @@
                 android:textColor="@color/TagLineColor"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/poppins"
-                android:maxLines="10"
                 android:paddingEnd="5dp"
                 android:text="Maecenas rhoncus mauris lacus, sed ornare nunc suscipit vel. Aliquam scelerisque pharetra lacus, quis porta neque vehicula ut. Donec sit amet est quis erat facilisis pretium. Proin pulvinar justo vel nisl varius feugiat. Duis tincidunt tempor aliquam. Donec rhoncus, nisi ut fermentum sollicitudin, purus massa placerat massa, a luctus magna metus vitae augue. Sed non mattis diam, ut mollis nisi. Aliquam faucibus, sem quis elementum luctus, eros ante tincidunt dui, quis maximus ante sapien et turpis. Etiam orci arcu, dignissim sed maximus bibendum, porta in ligula. Proin sed ullamcorper augue. Duis non nunc sit amet tortor interdum porttitor eget ut nulla. Suspendisse placerat, mauris in ultrices malesuada, tellus tellus mollis est, quis congue diam mauris quis leo. Etiam ullamcorper nisl mi, ut viverra ligula viverra sit amet. Cras sit amet libero scelerisque, ultricies ante auctor, blandit quam. Vestibulum vel augue dapibus, fermentum lectus consectetur, imperdiet leo. Nulla eu venenatis libero."
                 android:textAlignment="textStart"

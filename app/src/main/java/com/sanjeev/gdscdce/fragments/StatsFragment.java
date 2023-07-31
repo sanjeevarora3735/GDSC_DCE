@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -29,11 +28,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 import com.google.gson.Gson;
 import com.sanjeev.gdscdce.Adapter.ProjectShowcase_ViewPageAdapter;
 import com.sanjeev.gdscdce.Adapter.RecyclerViewAdapter_AllProjects;
-import com.sanjeev.gdscdce.CustomEvent;
 import com.sanjeev.gdscdce.Model.AllProjects;
 import com.sanjeev.gdscdce.Model.Registration_Model;
 import com.sanjeev.gdscdce.R;
@@ -87,7 +84,7 @@ public class StatsFragment extends Fragment {
         try {
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(UserCircleImageView);
         } catch (Exception e) {
-            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         // Initialization of RecyclerView

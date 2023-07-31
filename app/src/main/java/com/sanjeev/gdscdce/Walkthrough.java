@@ -3,7 +3,7 @@ package com.sanjeev.gdscdce;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -52,7 +52,7 @@ public class Walkthrough extends AppCompatActivity {
         if (pressedTime + 2000 > System.currentTimeMillis()) {
             finishAffinity();
         } else {
-            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
         }
         pressedTime = System.currentTimeMillis();
     }

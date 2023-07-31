@@ -73,7 +73,6 @@ public class EditProfile extends AppCompatActivity {
             Log.d("EDIT_PROFILE", e.getMessage());
         }
 
-
         ApplyBackendInformation();
         FetchProfileInformation();
 

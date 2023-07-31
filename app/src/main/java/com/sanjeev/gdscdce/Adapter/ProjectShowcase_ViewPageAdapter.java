@@ -66,6 +66,7 @@ public class ProjectShowcase_ViewPageAdapter extends PagerAdapter {
 
         LinearLayout MainLayout = view.findViewById(R.id.MainLayout);
         ImageView WalkthroughImage = view.findViewById(R.id.Poster);
+        ImageView ProjectUserUrl = view.findViewById(R.id.ProjectPosterImage);
         TextView slideHeading = view.findViewById(R.id.ProjectTitle);
         TextView slideDescription = view.findViewById(R.id.ProjectDescription);
 
@@ -80,6 +81,8 @@ public class ProjectShowcase_ViewPageAdapter extends PagerAdapter {
             }
         });
 
+
+        Picasso.get().load(ShowcaseProjectList.get(position).getProfileImageUrl()).into(ProjectUserUrl);
         Picasso.get().load(ShowcaseProjectList.get(position).getProjectPosterImageUrl()).into(WalkthroughImage);
         slideHeading.setText(ShowcaseProjectList.get(position).getProjectName());
         slideDescription.setText(ShowcaseProjectList.get(position).getProjectDescriptionBody());

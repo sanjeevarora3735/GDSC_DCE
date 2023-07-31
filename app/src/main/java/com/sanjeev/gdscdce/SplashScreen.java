@@ -2,7 +2,9 @@ package com.sanjeev.gdscdce;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -32,6 +34,7 @@ public class SplashScreen extends AppCompatActivity {
                     }
 //                    Toast.makeText(SplashScreen.this, "Hi", Toast.LENGTH_SHORT).show();
                     String token = task.getResult();
+                    Log.d("FCM TOKEN", token);
                 });
 
         FirebaseMessaging.getInstance().subscribeToTopic("GDSCDCE_USERS");
@@ -42,27 +45,15 @@ public class SplashScreen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            startActivity(new Intent(SplashScreen.this, GoogleSignin.class));
+            SharedPreferences sharedPref = getSharedPreferences(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase(), Context.MODE_PRIVATE);
+            boolean registrationIncomplete = sharedPref.getBoolean("registration_incomplete", false);
 
-            FirebaseFirestore.getInstance().collection("GDSC_DCE")
-                    .document("Users_Information")
-                    .collection("Registration_Details")
-                    .document(FirebaseAuth.getInstance().getCurrentUser().getEmail()).get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            if (task.getResult().exists()) {
-                                Log.d("Debugging", task.getResult().toString());
-                                startActivity(new Intent(SplashScreen.this, DashBoard.class));
-                            } else {
-                                FirebaseAuth.getInstance().signOut();
-//                                startActivity(new Intent(getApplicationContext(), GoogleSignin.class));
-                            }
-                        } else {
-                            Toast.makeText(SplashScreen.this, "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-//            startActivity(new Intent(SplashScreen.this, DashBoard.class));
+            if (registrationIncomplete) {
+                Intent registrationIntent = new Intent(this, Walkthrough.class);
+                startActivity(registrationIntent);
+            }else {
+                startActivity(new Intent(SplashScreen.this, DashBoard.class));
+            }
         } else {
             startActivity(new Intent(SplashScreen.this, Walkthrough.class));
 //            startActivity(new Intent(SplashScreen.this, DashBoard.class));

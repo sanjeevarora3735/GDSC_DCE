@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sanjeev.gdscdce.EventOverview;
 import com.sanjeev.gdscdce.Model.PastEvents;
-import com.sanjeev.gdscdce.ProjectView;
 import com.sanjeev.gdscdce.R;
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +28,7 @@ public class RecyclerViewAdapter_PastEvents extends RecyclerView.Adapter<Recycle
         this.pastEventsList = pasteEventsList;
     }
 
-    public void filterlist(ArrayList<PastEvents> filteredlist){
+    public void filterlist(ArrayList<PastEvents> filteredlist) {
         pastEventsList = filteredlist;
         notifyDataSetChanged();
     }
@@ -49,7 +48,7 @@ public class RecyclerViewAdapter_PastEvents extends RecyclerView.Adapter<Recycle
         PastEvents Event = pastEventsList.get(position);
         try {
             Picasso.get().load(Event.getYoutube()).into(holder.CardImageView);
-        }catch (Exception e){
+        } catch (Exception e) {
             Picasso.get().load("shorturl.at/hMPQ6").into(holder.CardImageView);
         }
 
@@ -78,7 +77,7 @@ public class RecyclerViewAdapter_PastEvents extends RecyclerView.Adapter<Recycle
             EventIntent.putExtra("AccessedUrl", pastEventsList.get(getAdapterPosition()).getAccessedUrl());
             context.startActivity(EventIntent);
 
-            Toast.makeText(context, "Item Clicked =>  "+pastEventsList.get(CurrentCardId).getEventTitle(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "Item Clicked =>  " + pastEventsList.get(CurrentCardId).getEventTitle(), Toast.LENGTH_SHORT).show();
         }
     }
 }

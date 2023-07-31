@@ -300,7 +300,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
     private void SaveUserBasicInformation() {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String Email = "sanjeevarora3735@gmail.com";
+        String Email = "testcrook8@gmail.com";
         try {
             Email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         }catch (Exception e){
@@ -395,7 +395,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
     }
 
     private void checkConnection() {
-        Toast.makeText(this, "check conn called", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "check conn called", Toast.LENGTH_SHORT).show();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.new.conn.CONNECTIVITY_CHANGE");
         registerReceiver(new ConnectionReceiver(), intentFilter);
@@ -414,7 +414,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
         DashboardInternetConnection.setVisibility(View.VISIBLE);
         InternetStatus.setText("Internet Not Available");
         InternetStatus.setBackgroundResource(R.color.NoInternet);
-        Toast.makeText(this, String.valueOf(DashboardInternetConnection.getVisibility()), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, String.valueOf(DashboardInternetConnection.getVisibility()), Toast.LENGTH_SHORT).show();
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -430,7 +430,7 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
         DashboardInternetConnection.setVisibility(View.VISIBLE);
         InternetStatus.setText("Connected To Internet");
         InternetStatus.setBackgroundResource(R.color.BackOnline);
-        Toast.makeText(this, String.valueOf(DashboardInternetConnection.getVisibility()), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, String.valueOf(DashboardInternetConnection.getVisibility()), Toast.LENGTH_SHORT).show();
 
 
         final Handler handler = new Handler();
@@ -464,6 +464,15 @@ public class DashBoard extends AppCompatActivity implements ConnectionReceiver.R
             Log.d("FragmentNames", fragmentName);
 
         }
+    }
+
+    @Override
+    protected void onStart() {
+        SharedPreferences sharedPref = getSharedPreferences(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("registration_incomplete", false);
+        editor.apply();
+        super.onStart();
     }
 
     @Override

@@ -119,7 +119,7 @@ public class ExploreFragment extends Fragment {
         }
         if(FilteredPastEvents.isEmpty()){
             PastEventRecyclerViewAdapter.filterlist(PastEventsArrayList);
-            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
         }else{
             PastEventRecyclerViewAdapter.filterlist(FilteredPastEvents);
         }

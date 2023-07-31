@@ -92,6 +92,7 @@
                     android:backgroundTint="@color/white"
                     android:layout_height="70dp"
                     android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
                     android:cropToPadding="false"
                     android:src="@drawable/profile_image"
                     app:layout_constrainedWidth="true"

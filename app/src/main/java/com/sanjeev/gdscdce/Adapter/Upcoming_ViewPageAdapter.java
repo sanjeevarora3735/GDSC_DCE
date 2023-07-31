@@ -1,18 +1,14 @@
 package com.sanjeev.gdscdce.Adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.drawable.IconCompat;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.sanjeev.gdscdce.R;
@@ -24,8 +20,8 @@ public class Upcoming_ViewPageAdapter extends PagerAdapter {
 
     // Some Important Arrays of the Walk through Pages
     int[] Images = {R.drawable.walkthrough_003, R.drawable.walkthrough_000, R.drawable.walkthrough_002};
-    String[] Heading = {"Welcome", "Join the Network","Begin with GDSC-DCE"};
-    String[] Description = {"Welcome to the official app of GDSC-DCE! Your gateway to staying connected and informed about all the latest events, news, and updates from our community.\n","We're excited for you to start using the app and staying connected with our community.\n" +
+    String[] Heading = {"Welcome", "Join the Network", "Begin with GDSC-DCE"};
+    String[] Description = {"Welcome to the official app of GDSC-DCE! Your gateway to staying connected and informed about all the latest events, news, and updates from our community.\n", "We're excited for you to start using the app and staying connected with our community.\n" +
             "If you come across any problem or bug do contact us for further assistance.\n" +
             "\n", "Thanks for downloading the GDSC-DCE app! We're here to help you get set up and start using the app in no time. \nIf you have any questions or issues, please don't hesitate to reach out to us for support. Enjoy!."};
 

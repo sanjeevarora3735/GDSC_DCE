@@ -121,7 +121,6 @@ public class UploadProject extends AppCompatActivity {
                 resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
                 ProjectPosterImage.setImageBitmap(resizedBitmap);
 
-                
 
             } catch (Exception e) {
 
@@ -152,11 +151,9 @@ public class UploadProject extends AppCompatActivity {
             byte[] data = baos.toByteArray();
 
 
-
-
             storageRef.child(ProjectTitle.getText().toString() + ProjectUrl.getText().toString()).putBytes(data).addOnSuccessListener(taskSnapshot -> storageRef.child(ProjectTitle.getText().toString() + ProjectUrl.getText().toString()).getDownloadUrl().addOnSuccessListener(uri1 -> {
                 ProjectPosterUrl = uri1.toString();
-                Toast.makeText(this, ProjectPosterUrl, Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, ProjectPosterUrl, Toast.LENGTH_LONG).show();
                 ProjectToStateApproval();
             })).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override

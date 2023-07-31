@@ -20,7 +20,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -173,22 +174,41 @@ public class ProjectView extends AppCompatActivity {
                             AnimatedLoader_Rl.setVisibility(View.VISIBLE);
                             DatabaseReference db = FirebaseDatabase.getInstance().getReference("/ProjectsInformation/AllProjects/");
                             HashMap ProjectDetails = new HashMap();
-                            ProjectDetails.put("ProjectApprovalMentor", FetchUserBasicInformation().getUsername().split(".")[0]);
+                            Log.d("EmailIssue", FetchUserBasicInformation().getUsername().toString());
+                            ProjectDetails.put("projectApprovalMentor", FetchUserBasicInformation().getUsername().split("[.]")[0]);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                ProjectDetails.put("ProjectApprovalDate", String.valueOf(LocalDate.now()));
+                                ProjectDetails.put("projectApprovalDate", String.valueOf(LocalDate.now()));
                             } else {
-                                ProjectDetails.put("ProjectApprovalDate", String.valueOf(Calendar.getInstance().getTime()));
+                                ProjectDetails.put("projectApprovalDate", String.valueOf(Calendar.getInstance().getTime()));
                             }
-                            db.child(String.valueOf(finalProjectCounter)).updateChildren(ProjectDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                            Query query = db.orderByChild("projectID").equalTo(ProjectID);
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(ProjectView.this, "Success", Toast.LENGTH_SHORT).show();
-                                    AnimatedLoader_Rl.setVisibility(View.GONE);
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        snapshot.getRef().updateChildren(ProjectDetails);
+                                        AnimatedLoader_Rl.setVisibility(View.GONE);
                                     SuccessButton.setText("View Project");
                                     ProjectView.super.onBackPressed();
                                     SaveUpdatedProjectsToSharedPreferences();
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+//                                    Toast.makeText(ProjectView.this, "Failed To Approve", Toast.LENGTH_SHORT).show();
                                 }
                             });
+//                            db.child(String.valueOf(finalProjectCounter)).updateChildren(ProjectDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void unused) {
+//                                    Toast.makeText(ProjectView.this, "Success", Toast.LENGTH_SHORT).show();
+//                                    AnimatedLoader_Rl.setVisibility(View.GONE);
+//                                    SuccessButton.setText("View Project");
+//                                    ProjectView.super.onBackPressed();
+//                                    SaveUpdatedProjectsToSharedPreferences();
+//                                }
+//                            });
                         }
                     });
                 } else {
@@ -209,7 +229,6 @@ public class ProjectView extends AppCompatActivity {
                         }
                     });
                 }
-                ProjectCounter++;
                 break;
             }
         }
